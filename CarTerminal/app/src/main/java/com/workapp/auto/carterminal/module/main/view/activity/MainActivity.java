@@ -1,4 +1,4 @@
-package com.workapp.auto.carterminal.module.home.view.activity;
+package com.workapp.auto.carterminal.module.main.view.activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;

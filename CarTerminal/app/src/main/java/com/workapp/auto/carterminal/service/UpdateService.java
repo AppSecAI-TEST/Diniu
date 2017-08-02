@@ -17,7 +17,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.workapp.auto.carterminal.module.home.view.activity.MainActivity;
+import com.workapp.auto.carterminal.module.main.view.activity.MainActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;

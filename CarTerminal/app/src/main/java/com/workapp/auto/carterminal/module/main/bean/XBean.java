@@ -1,4 +1,4 @@
-package com.workapp.auto.carterminal.module.home.bean;
+package com.workapp.auto.carterminal.module.main.bean;
 
 /**
  * Created by owner on 2017/7/5.

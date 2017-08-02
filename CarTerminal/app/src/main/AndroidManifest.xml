@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.workapp.auto.carterminal"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.workapp.auto.carterminal">
 
     <!--写入手机存储-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -27,6 +27,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于摄像头-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.workapp.auto.carterminal.base.MyApplication"
@@ -36,15 +38,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.workapp.auto.carterminal.module.home.view.activity.MainActivity"
+            android:name="com.workapp.auto.carterminal.module.main.view.activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".module.login.view.activity.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".module.login.view.activity.ForgetPswActivity" />
+        <activity android:name=".module.login.view.activity.NewPswActivity" />
+        <activity android:name=".base.PermissionsActivity"/>
     </application>
 
 </manifest>

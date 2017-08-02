@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y48"
+        android:layout_marginLeft="@dimen/x27"
+        android:layout_marginRight="@dimen/x27"
+        android:layout_marginTop="@dimen/y22"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/newPswAct_et_newPsw"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y39"
+            android:background="@drawable/line_et_bg"
+            android:hint="请输入新密码"
+            android:inputType="textPassword"
+            android:textColorHint="#cccccc"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y48"
+        android:layout_marginLeft="@dimen/x27"
+        android:layout_marginRight="@dimen/x27"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/newPswAct_et_repeat"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y39"
+            android:layout_weight="1"
+            android:background="@drawable/line_et_bg"
+            android:hint="再次输入密码"
+            android:inputType="textPassword"
+            android:textColorHint="#cccccc"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/newPswAct_btn_submit"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y39"
+        android:layout_marginLeft="@dimen/x27"
+        android:layout_marginRight="@dimen/x27"
+        android:layout_marginTop="@dimen/y23"
+        android:background="@drawable/selector_bg_button"
+        android:enabled="false"
+        android:text="提交"
+        android:textColor="@drawable/selector_color_button_text" />
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.workapp.auto.carterminal.module.home.view.function;
+package com.workapp.auto.carterminal.module.main.view.function;
 
 /**
  * Created by owner on 2017/7/5.
