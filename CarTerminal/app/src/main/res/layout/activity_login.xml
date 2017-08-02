@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@android:color/white">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -90,8 +86,4 @@
             android:text="登录"
             android:textColor="@drawable/selector_color_button_text" />
 
-    </LinearLayout>
-
-    <include layout="@layout/common_progressbar" />
-
-</RelativeLayout>
+</LinearLayout>

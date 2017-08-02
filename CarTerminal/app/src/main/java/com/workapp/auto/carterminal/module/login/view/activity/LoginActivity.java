@@ -37,8 +37,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     TextView tvForgetPsw;
     @Bind(R.id.loginAct_btn_login)
     Button btnLogin;
-    @Bind(R.id.commonProgress_rl)
-    RelativeLayout rlProgress;
 
     private PermissionsChecker mPermissionsChecker;
     private static final int REQUEST_CODE = 1001;
@@ -59,6 +57,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        hideTitle();
     }
 
     @Override
@@ -152,17 +151,17 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void showMessage(String msg) {
-        ToastUtils.showShort(this, msg);
+        showMsg(msg);
     }
 
     @Override
     public void showLoading() {
-        rlProgress.setVisibility(View.VISIBLE);
+        showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-        rlProgress.setVisibility(View.GONE);
+        hideLoadingView();
     }
 
     @Override
