@@ -142,7 +142,7 @@ public class ReturnCarFragment extends BaseFragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mReturnCarAdapter = new ReturnCarAdapter();
+        mReturnCarAdapter = new ReturnCarAdapter(getActivity());
         recyclerView.setAdapter(mReturnCarAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
     }

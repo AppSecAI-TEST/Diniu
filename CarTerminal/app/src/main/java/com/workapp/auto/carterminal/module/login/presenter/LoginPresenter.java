@@ -41,7 +41,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         if (signInReturnBean.isSuccess()) {
                             mView.hideLoading();
                             mView.toMainAct();
-                            SharedPreferencesUtils.put(MyApplication.getInstance(),"X-Auth-Token",signInReturnBean.getData().getToken());
+                            SharedPreferencesUtils.put(MyApplication.getInstance(), "X-Auth-Token", signInReturnBean.getData().getToken());
                             Log.d("token", String.valueOf(SharedPreferencesUtils.get(MyApplication.getInstance(), "X-Auth-Token", "")));
                         } else {
                             mView.hideLoading();

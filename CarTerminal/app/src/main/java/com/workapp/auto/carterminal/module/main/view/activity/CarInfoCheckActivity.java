@@ -120,10 +120,21 @@ public class CarInfoCheckActivity extends BaseActivity {
         CarInfoCheckReturnBean.DataBean data = carInfoCheckReturnBean.getData();
         switch (mType) {
             case "1":
-                CarInfoCheckBean certificate1 = new CarInfoCheckBean("交强险凭证", data.getInsuranceCertificate());
-                CarInfoCheckBean certificate2 = new CarInfoCheckBean("保险卡", data.getInsuranceCard());
-                CarInfoCheckBean certificate3 = new CarInfoCheckBean("保修保养卡", data.getWarrantyCard());
-                CarInfoCheckBean certificate4 = new CarInfoCheckBean("车辆行驶证", data.getCarTravelLicense());
+                CarInfoCheckBean certificate1;
+                CarInfoCheckBean certificate2;
+                CarInfoCheckBean certificate3;
+                CarInfoCheckBean certificate4;
+                if (data != null) {
+                    certificate1 = new CarInfoCheckBean("交强险凭证", data.getInsuranceCertificate());
+                    certificate2 = new CarInfoCheckBean("保险卡", data.getInsuranceCard());
+                    certificate3 = new CarInfoCheckBean("保修保养卡", data.getWarrantyCard());
+                    certificate4 = new CarInfoCheckBean("车辆行驶证", data.getCarTravelLicense());
+                } else {
+                    certificate1 = new CarInfoCheckBean("交强险凭证", "1");
+                    certificate2 = new CarInfoCheckBean("保险卡", "1");
+                    certificate3 = new CarInfoCheckBean("保修保养卡", "1");
+                    certificate4 = new CarInfoCheckBean("车辆行驶证", "1");
+                }
                 carInfoCheckBeanList.add(certificate1);
                 carInfoCheckBeanList.add(certificate2);
                 carInfoCheckBeanList.add(certificate3);
@@ -131,19 +142,48 @@ public class CarInfoCheckActivity extends BaseActivity {
                 mCarInfoCheckAdapter.setNewData(carInfoCheckBeanList);
                 break;
             case "2":
-                CarInfoCheckBean outCar1 = new CarInfoCheckBean("前号牌", data.getBeforePlate());
-                CarInfoCheckBean outCar2 = new CarInfoCheckBean("后车牌", data.getEndPlate());
-                CarInfoCheckBean outCar3 = new CarInfoCheckBean("前车轮", data.getFrontWheel());
-                CarInfoCheckBean outCar4 = new CarInfoCheckBean("后车轮", data.getRearWheel());
-                CarInfoCheckBean outCar5 = new CarInfoCheckBean("挡风玻璃", data.getWindshield());
-                CarInfoCheckBean outCar6 = new CarInfoCheckBean("车窗玻璃", data.getWindowGlass());
-                CarInfoCheckBean outCar7 = new CarInfoCheckBean("雨刮器", data.getWindscreenWiper());
-                CarInfoCheckBean outCar8 = new CarInfoCheckBean("反光镜", data.getRetroreflector());
-                CarInfoCheckBean outCar9 = new CarInfoCheckBean("车门把手", data.getDoorHandle());
-                CarInfoCheckBean outCar10 = new CarInfoCheckBean("车灯", data.getCarLights());
-                CarInfoCheckBean outCar11 = new CarInfoCheckBean("转向灯", data.getTurnLight());
-                CarInfoCheckBean outCar12 = new CarInfoCheckBean("倒车灯", data.getBackupLight());
-                CarInfoCheckBean outCar13 = new CarInfoCheckBean("充电接口", data.getChargeJack());
+                CarInfoCheckBean outCar1;
+                CarInfoCheckBean outCar2;
+                CarInfoCheckBean outCar3;
+                CarInfoCheckBean outCar4;
+                CarInfoCheckBean outCar5;
+                CarInfoCheckBean outCar6;
+                CarInfoCheckBean outCar7;
+                CarInfoCheckBean outCar8;
+                CarInfoCheckBean outCar9;
+                CarInfoCheckBean outCar10;
+                CarInfoCheckBean outCar11;
+                CarInfoCheckBean outCar12;
+                CarInfoCheckBean outCar13;
+                if (data != null) {
+                    outCar1 = new CarInfoCheckBean("前号牌", data.getBeforePlate());
+                    outCar2 = new CarInfoCheckBean("后车牌", data.getEndPlate());
+                    outCar3 = new CarInfoCheckBean("前车轮", data.getFrontWheel());
+                    outCar4 = new CarInfoCheckBean("后车轮", data.getRearWheel());
+                    outCar5 = new CarInfoCheckBean("挡风玻璃", data.getWindshield());
+                    outCar6 = new CarInfoCheckBean("车窗玻璃", data.getWindowGlass());
+                    outCar7 = new CarInfoCheckBean("雨刮器", data.getWindscreenWiper());
+                    outCar8 = new CarInfoCheckBean("反光镜", data.getRetroreflector());
+                    outCar9 = new CarInfoCheckBean("车门把手", data.getDoorHandle());
+                    outCar10 = new CarInfoCheckBean("车灯", data.getCarLights());
+                    outCar11 = new CarInfoCheckBean("转向灯", data.getTurnLight());
+                    outCar12 = new CarInfoCheckBean("倒车灯", data.getBackupLight());
+                    outCar13 = new CarInfoCheckBean("充电接口", data.getChargeJack());
+                } else {
+                    outCar1 = new CarInfoCheckBean("前号牌", "1");
+                    outCar2 = new CarInfoCheckBean("后车牌", "1");
+                    outCar3 = new CarInfoCheckBean("前车轮", "1");
+                    outCar4 = new CarInfoCheckBean("后车轮", "1");
+                    outCar5 = new CarInfoCheckBean("挡风玻璃", "1");
+                    outCar6 = new CarInfoCheckBean("车窗玻璃", "1");
+                    outCar7 = new CarInfoCheckBean("雨刮器", "1");
+                    outCar8 = new CarInfoCheckBean("反光镜", "1");
+                    outCar9 = new CarInfoCheckBean("车门把手", "1");
+                    outCar10 = new CarInfoCheckBean("车灯", "1");
+                    outCar11 = new CarInfoCheckBean("转向灯", "1");
+                    outCar12 = new CarInfoCheckBean("倒车灯", "1");
+                    outCar13 = new CarInfoCheckBean("充电接口", "1");
+                }
                 carInfoCheckBeanList.add(outCar1);
                 carInfoCheckBeanList.add(outCar2);
                 carInfoCheckBeanList.add(outCar3);
@@ -160,25 +200,66 @@ public class CarInfoCheckActivity extends BaseActivity {
                 mCarInfoCheckAdapter.setNewData(carInfoCheckBeanList);
                 break;
             case "3":
-                CarInfoCheckBean innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getInsuranceCertificate());
-                CarInfoCheckBean innerCar2 = new CarInfoCheckBean("车灯开关", data.getInsuranceCard());
-                CarInfoCheckBean innerCar3 = new CarInfoCheckBean("转向灯开关", data.getWarrantyCard());
-                CarInfoCheckBean innerCar4 = new CarInfoCheckBean("雨刮器开关", data.getCarTravelLicense());
-                CarInfoCheckBean innerCar5 = new CarInfoCheckBean("手刹", data.getHandBrake());
-                CarInfoCheckBean innerCar6 = new CarInfoCheckBean("脚刹", data.getFootBrake());
-                CarInfoCheckBean innerCar7 = new CarInfoCheckBean("油门", data.getAccelerator());
-                CarInfoCheckBean innerCar8 = new CarInfoCheckBean("换挡器", data.getShifter());
-                CarInfoCheckBean innerCar9 = new CarInfoCheckBean("音响", data.getSound());
-                CarInfoCheckBean innerCar10 = new CarInfoCheckBean("喇叭", data.getHorn());
-                CarInfoCheckBean innerCar11 = new CarInfoCheckBean("方向盘", data.getSteeringWheel());
-                CarInfoCheckBean innerCar12 = new CarInfoCheckBean("车内灯", data.getBodyLight());
-                CarInfoCheckBean innerCar13 = new CarInfoCheckBean("仪表盘", data.getDashBoard());
-                CarInfoCheckBean innerCar14 = new CarInfoCheckBean("车载媒体", data.getAutomotiveMedia());
-                CarInfoCheckBean innerCar15 = new CarInfoCheckBean("空调", data.getAirCondition());
-                CarInfoCheckBean innerCar16 = new CarInfoCheckBean("后视镜", data.getRearviewMirror());
-                CarInfoCheckBean innerCar17 = new CarInfoCheckBean("遮阳板", data.getSunvisor());
-                CarInfoCheckBean innerCar18 = new CarInfoCheckBean("安全带", data.getSafetyBelt());
-                CarInfoCheckBean innerCar19 = new CarInfoCheckBean("座椅", data.getSeat());
+                CarInfoCheckBean innerCar1;
+                CarInfoCheckBean innerCar2;
+                CarInfoCheckBean innerCar3;
+                CarInfoCheckBean innerCar4;
+                CarInfoCheckBean innerCar5;
+                CarInfoCheckBean innerCar6;
+                CarInfoCheckBean innerCar7;
+                CarInfoCheckBean innerCar8;
+                CarInfoCheckBean innerCar9;
+                CarInfoCheckBean innerCar10;
+                CarInfoCheckBean innerCar11;
+                CarInfoCheckBean innerCar12;
+                CarInfoCheckBean innerCar13;
+                CarInfoCheckBean innerCar14;
+                CarInfoCheckBean innerCar15;
+                CarInfoCheckBean innerCar16;
+                CarInfoCheckBean innerCar17;
+                CarInfoCheckBean innerCar18;
+                CarInfoCheckBean innerCar19;
+                if (data != null) {
+                    innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getInsuranceCertificate());
+                    innerCar2 = new CarInfoCheckBean("车灯开关", data.getInsuranceCard());
+                    innerCar3 = new CarInfoCheckBean("转向灯开关", data.getWarrantyCard());
+                    innerCar4 = new CarInfoCheckBean("雨刮器开关", data.getCarTravelLicense());
+                    innerCar5 = new CarInfoCheckBean("手刹", data.getHandBrake());
+                    innerCar6 = new CarInfoCheckBean("脚刹", data.getFootBrake());
+                    innerCar7 = new CarInfoCheckBean("油门", data.getAccelerator());
+                    innerCar8 = new CarInfoCheckBean("换挡器", data.getShifter());
+                    innerCar9 = new CarInfoCheckBean("音响", data.getSound());
+                    innerCar10 = new CarInfoCheckBean("喇叭", data.getHorn());
+                    innerCar11 = new CarInfoCheckBean("方向盘", data.getSteeringWheel());
+                    innerCar12 = new CarInfoCheckBean("车内灯", data.getBodyLight());
+                    innerCar13 = new CarInfoCheckBean("仪表盘", data.getDashBoard());
+                    innerCar14 = new CarInfoCheckBean("车载媒体", data.getAutomotiveMedia());
+                    innerCar15 = new CarInfoCheckBean("空调", data.getAirCondition());
+                    innerCar16 = new CarInfoCheckBean("后视镜", data.getRearviewMirror());
+                    innerCar17 = new CarInfoCheckBean("遮阳板", data.getSunvisor());
+                    innerCar18 = new CarInfoCheckBean("安全带", data.getSafetyBelt());
+                    innerCar19 = new CarInfoCheckBean("座椅", data.getSeat());
+                } else {
+                    innerCar1 = new CarInfoCheckBean("车窗升降开关", "1");
+                    innerCar2 = new CarInfoCheckBean("车灯开关", "1");
+                    innerCar3 = new CarInfoCheckBean("转向灯开关", "1");
+                    innerCar4 = new CarInfoCheckBean("雨刮器开关", "1");
+                    innerCar5 = new CarInfoCheckBean("手刹", "1");
+                    innerCar6 = new CarInfoCheckBean("脚刹", "1");
+                    innerCar7 = new CarInfoCheckBean("油门", "1");
+                    innerCar8 = new CarInfoCheckBean("换挡器", "1");
+                    innerCar9 = new CarInfoCheckBean("音响", "1");
+                    innerCar10 = new CarInfoCheckBean("喇叭", "1");
+                    innerCar11 = new CarInfoCheckBean("方向盘", "1");
+                    innerCar12 = new CarInfoCheckBean("车内灯", "1");
+                    innerCar13 = new CarInfoCheckBean("仪表盘", "1");
+                    innerCar14 = new CarInfoCheckBean("车载媒体", "1");
+                    innerCar15 = new CarInfoCheckBean("空调", "1");
+                    innerCar16 = new CarInfoCheckBean("后视镜", "1");
+                    innerCar17 = new CarInfoCheckBean("遮阳板", "1");
+                    innerCar18 = new CarInfoCheckBean("安全带", "1");
+                    innerCar19 = new CarInfoCheckBean("座椅", "1");
+                }
                 carInfoCheckBeanList.add(innerCar1);
                 carInfoCheckBeanList.add(innerCar2);
                 carInfoCheckBeanList.add(innerCar3);
@@ -201,13 +282,30 @@ public class CarInfoCheckActivity extends BaseActivity {
                 mCarInfoCheckAdapter.setNewData(carInfoCheckBeanList);
                 break;
             case "4":
-                CarInfoCheckBean tool1 = new CarInfoCheckBean("千斤顶", data.getJack());
-                CarInfoCheckBean tool2 = new CarInfoCheckBean("工具包", data.getKit());
-                CarInfoCheckBean tool3 = new CarInfoCheckBean("故障警示牌", data.getFaultWarningBoard());
-                CarInfoCheckBean tool4 = new CarInfoCheckBean("备胎", data.getSpareWheel());
-                CarInfoCheckBean tool5 = new CarInfoCheckBean("灭火器", data.getFireExtinguisher());
-                CarInfoCheckBean tool6 = new CarInfoCheckBean("车钥匙", data.getCarKey());
-                CarInfoCheckBean tool7 = new CarInfoCheckBean("随车手册", data.getAccessoryManual());
+                CarInfoCheckBean tool1;
+                CarInfoCheckBean tool2;
+                CarInfoCheckBean tool3;
+                CarInfoCheckBean tool4;
+                CarInfoCheckBean tool5;
+                CarInfoCheckBean tool6;
+                CarInfoCheckBean tool7;
+                if (data != null) {
+                    tool1 = new CarInfoCheckBean("千斤顶", data.getJack());
+                    tool2 = new CarInfoCheckBean("工具包", data.getKit());
+                    tool3 = new CarInfoCheckBean("故障警示牌", data.getFaultWarningBoard());
+                    tool4 = new CarInfoCheckBean("备胎", data.getSpareWheel());
+                    tool5 = new CarInfoCheckBean("灭火器", data.getFireExtinguisher());
+                    tool6 = new CarInfoCheckBean("车钥匙", data.getCarKey());
+                    tool7 = new CarInfoCheckBean("随车手册", data.getAccessoryManual());
+                } else {
+                    tool1 = new CarInfoCheckBean("千斤顶", "1");
+                    tool2 = new CarInfoCheckBean("工具包", "1");
+                    tool3 = new CarInfoCheckBean("故障警示牌", "1");
+                    tool4 = new CarInfoCheckBean("备胎", "1");
+                    tool5 = new CarInfoCheckBean("灭火器", "1");
+                    tool6 = new CarInfoCheckBean("车钥匙", "1");
+                    tool7 = new CarInfoCheckBean("随车手册", "1");
+                }
                 carInfoCheckBeanList.add(tool1);
                 carInfoCheckBeanList.add(tool2);
                 carInfoCheckBeanList.add(tool3);
