@@ -17,6 +17,7 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.base.PermissionsActivity;
 import com.workapp.auto.carterminal.module.login.presenter.LoginPresenter;
 import com.workapp.auto.carterminal.module.login.view.function.ILoginView;
+import com.workapp.auto.carterminal.module.main.view.activity.MainActivity;
 import com.workapp.auto.carterminal.utils.PermissionsChecker;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 
@@ -171,7 +172,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void toMainAct() {
-        finish();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.workapp.auto.carterminal.base;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import android.view.ViewGroup;
 /** fragment基类
  * Created by Administrator on 2016/9/15.
  */
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseFragment extends Fragment {
     @Nullable//@Nullable 表示定义的字段可以为空.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public abstract class BaseFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
-        onMyClick();
+        initListener();
     }
 
 
@@ -48,8 +49,8 @@ public abstract class BaseFragment extends Fragment{
     protected abstract void initData();
 
     /**
-     * 添加点击事件
+     * 添加事件监听
      */
-    protected abstract void onMyClick();
+    protected abstract void initListener();
 
 }

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA"
+            android:orientation="vertical"
+            >
+            <!--租车信息-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/y16"
+                android:paddingBottom="@dimen/y15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y16"
+                    android:text="租车信息"
+                    android:textColor="@color/c2"
+                    android:textSize="16sp"/>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y12"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="还车点："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_returnSite"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="租车时间："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_startTime"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="还车时间："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_endTime"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="租车人："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_rentCarName"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系方式："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/tel"
+                        android:drawablePadding="@dimen/x6"
+                        android:text="@string/xxx"
+                        android:textColor="#34a8fd"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车型："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_carModel"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车牌号："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_plateNo"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="电量："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_power"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="续航："/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_canRange"
+                        style="@style/ReturnCarInfoTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xxx"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--检查项目-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y11"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/y16"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y16"
+                    android:text="检查项目"
+                    android:textColor="@color/c2"
+                    android:textSize="16sp"/>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:id="@+id/returnCarInfoAct_ll_certificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x6"
+                        android:src="@mipmap/book"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="证书"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_certificate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableRight="@mipmap/enter"
+                        android:text="去检查"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:id="@+id/returnCarInfoAct_ll_carBodyPart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x6"
+                        android:src="@mipmap/bady"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="车体部件"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_carBodyPart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableRight="@mipmap/enter"
+                        android:text="去检查"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:id="@+id/returnCarInfoAct_ll_carInPart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x6"
+                        android:src="@mipmap/inside"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="车内部件"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_carInPart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableRight="@mipmap/enter"
+                        android:text="去检查"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:id="@+id/returnCarInfoAct_ll_tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x6"
+                        android:src="@mipmap/tool"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="工具物件"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_tools"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableRight="@mipmap/enter"
+                        android:text="去检查"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/common_line"/>
+
+                <LinearLayout
+                    android:id="@+id/returnCarInfoAct_ll_carData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/x6"
+                        android:src="@mipmap/information"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="车辆资料上传"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_carData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/x6"
+                        android:drawableRight="@mipmap/enter"
+                        android:text="去检查"
+                        android:textColor="#989898"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/common_line"/>
+
+                <!--验车说明-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y16"
+                    android:layout_marginTop="@dimen/y16"
+                    android:text="验车说明"
+                    android:textColor="@color/c2"
+                    android:textSize="16sp"/>
+
+                <include layout="@layout/common_line"/>
+
+                <RadioGroup
+                    android:id="@+id/returnCarInfoAct_radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y14"
+                    android:layout_marginTop="@dimen/y14"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/returnCarInfoAct_radio_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正常入库"
+                        android:layout_marginRight="@dimen/x20"
+                        android:textColor="@color/c2"
+                        android:textSize="12sp"/>
+
+                    <RadioButton
+                        android:id="@+id/returnCarInfoAct_radio_repair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待维修"
+                        android:textColor="@color/c2"
+                        android:layout_marginRight="@dimen/x20"
+                        android:textSize="12sp"/>
+
+                    <RadioButton
+                        android:id="@+id/returnCarInfoAct_radio_scrapped"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="报废"
+                        android:textColor="@color/c2"
+                        android:textSize="12sp"/>
+
+                </RadioGroup>
+
+                <include layout="@layout/common_line"/>
+
+                <!--备注-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y16"
+                    android:layout_marginTop="@dimen/y16"
+                    android:text="备注"
+                    android:textColor="@color/c2"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/returnCarInfoAct_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y74"
+                        android:background="@drawable/bg_edit_txt"/>
+
+                    <TextView
+                        android:id="@+id/returnCarInfoAct_tv_edt_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/x3"
+                        android:text="200"
+                        android:textColor="#989898"
+                        android:textSize="12sp"/>
+
+                    <include layout="@layout/common_line"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/returnCarInfoAct_btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x39"
+                    android:layout_marginBottom="@dimen/x20"
+                    android:layout_marginLeft="@dimen/x27"
+                    android:layout_marginRight="@dimen/x27"
+                    android:layout_marginTop="@dimen/x20"
+                    android:background="@drawable/selector_bg_button"
+                    android:enabled="true"
+                    android:gravity="center"
+                    android:text="提交"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x16"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

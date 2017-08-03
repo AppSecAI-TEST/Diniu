@@ -37,7 +37,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     public void onNext(SignInReturnBean signInReturnBean) {
                         if (signInReturnBean.isSuccess()) {
                             mView.hideLoading();
-                            mView.toForgetPswAct();
+                            mView.toMainAct();
                         } else {
                             mView.hideLoading();
                             mView.showMessage(signInReturnBean.getMessage());
