@@ -7,7 +7,7 @@ import com.workapp.auto.carterminal.base.BaseActivity;
  * Created by Administrator on 2017/8/3 0003.
  */
 
-public class ReturnCarInfo extends BaseActivity{
+public class ReturnCarInfoActivity extends BaseActivity{
     @Override
     protected int getLayout() {
         return R.layout.activity_return_car_info;
@@ -15,7 +15,7 @@ public class ReturnCarInfo extends BaseActivity{
 
     @Override
     protected void initView() {
-
+        setTitle("还车信息");
     }
 
     @Override

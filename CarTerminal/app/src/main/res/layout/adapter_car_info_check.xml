@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_grey"
+              android:layout_marginTop="@dimen/y5"
+              android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/carInfoCheckAdapter_ll_click"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x16"
+        android:paddingRight="@dimen/x16">
+
+        <TextView
+            android:id="@+id/carInfoCheckAdapter_tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/xxx"
+            android:textColor="@color/t28"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/carInfoCheckAdapter_tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/x18"
+            android:text="@string/xxx"
+            android:textColor="@color/t28"
+            android:textSize="13sp"/>
+
+        <ImageView
+            android:id="@+id/carInfoCheckAdapter_iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/down"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:visibility="gone"
+        android:id="@+id/carInfoCheckAdapter_radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50"
+        android:layout_marginBottom="@dimen/y1"
+        android:layout_marginTop="@dimen/y5"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/x10"
+        >
+
+        <RadioButton
+            android:id="@+id/carInfoCheckAdapter_radioBtn_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="配置正常"
+            android:textColor="@color/d8"
+            android:textSize="10sp"/>
+
+        <RadioButton
+            android:id="@+id/carInfoCheckAdapter_radioBtn_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="配置损坏"
+            android:textColor="#FF4141"
+            android:textSize="10sp"/>
+
+        <RadioButton
+            android:id="@+id/carInfoCheckAdapter_radioBtn_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="缺少配置"
+            android:textColor="#FF4141"
+            android:textSize="10sp"/>
+
+        <RadioButton
+            android:id="@+id/carInfoCheckAdapter_radioBtn_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="无此配置"
+            android:textColor="#969696"
+            android:textSize="10sp"/>
+
+    </RadioGroup>
+
+</LinearLayout>

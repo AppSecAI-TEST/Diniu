@@ -43,16 +43,22 @@
         <activity
             android:name=".module.login.view.activity.LoginActivity"
             android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".module.login.view.activity.ForgetPswActivity"/>
-        <activity android:name=".module.login.view.activity.NewPswActivity"/>
-        <activity android:name=".base.PermissionsActivity"/>
-        <activity android:name=".module.main.view.activity.ReturnCarInfo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".module.login.view.activity.ForgetPswActivity"/>
+        <activity android:name=".module.login.view.activity.NewPswActivity"/>
+        <activity android:name=".base.PermissionsActivity"/>
+        <activity android:name=".module.main.view.activity.ReturnCarInfoActivity">
+
+        </activity>
+        <activity android:name=".module.main.view.activity.InfoCertificateActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
     </application>
 

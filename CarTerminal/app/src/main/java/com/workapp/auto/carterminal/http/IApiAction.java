@@ -2,6 +2,7 @@ package com.workapp.auto.carterminal.http;
 
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import retrofit2.http.GET;
@@ -30,4 +31,7 @@ public interface IApiAction {
     Observable<ReturnCarListReturnBean> findReturnCarList(@Query("lat") String lat, @Query("lng") String lng,
                                                           @Query("range") String range, @Query("page") String page,
                                                           @Query("size") String size, @Query("handleState") String handleState);
+
+    @GET("returncar/CheckCarLogs")
+    Observable<CarInfoCheckReturnBean> checkCarLogs(@Query("taskId") String taskId, @Query("type") String type);
 }

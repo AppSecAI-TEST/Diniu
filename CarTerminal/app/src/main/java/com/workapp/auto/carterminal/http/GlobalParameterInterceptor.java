@@ -1,5 +1,8 @@
 package com.workapp.auto.carterminal.http;
 
+import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.utils.SharedPreferencesUtils;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -27,7 +30,7 @@ public class GlobalParameterInterceptor implements Interceptor {
 //        newBuilder.addQueryParameter("ci", String.valueOf(ci));
 
         // 新的请求
-        Request newRequest = builder.url(newBuilder.build()).build();
+        Request newRequest = builder.url(newBuilder.build()).header("X-Auth-Token", String.valueOf(SharedPreferencesUtils.get(MyApplication.getInstance(), "X-Auth-Token", ""))).build();
         Response response = chain.proceed(newRequest);
         return response;
     }

@@ -6,6 +6,7 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.login.view.function.ILoginView;
+import com.workapp.auto.carterminal.utils.SharedPreferencesUtils;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,6 +39,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         if (signInReturnBean.isSuccess()) {
                             mView.hideLoading();
                             mView.toMainAct();
+                            SharedPreferencesUtils.put(MyApplication.getInstance(),"X-Auth-Token",signInReturnBean.getData().getToken());
                         } else {
                             mView.hideLoading();
                             mView.showMessage(signInReturnBean.getMessage());
