@@ -3,6 +3,7 @@ package com.workapp.auto.carterminal.http;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import java.util.Map;
@@ -40,4 +41,11 @@ public interface IApiAction {
 
     @POST("returncar/saveOrUpdateValidCarStatus")
     Observable<BaseResponse> saveOrUpdateValidCarStatus(@QueryMap Map<String, String> map);
+
+    @GET("returncar/returnCarReceiveDetail")
+    Observable<ReturnCarDetailReturnBean> returnCarReceiveDetail(@Query("taskId") String taskId);
+
+    @POST("returncar/updateCarStatus")
+    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+
 }

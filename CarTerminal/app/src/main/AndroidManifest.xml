@@ -29,6 +29,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!--用于摄像头-->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!--打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name="com.workapp.auto.carterminal.base.MyApplication"

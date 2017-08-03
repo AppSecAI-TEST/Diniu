@@ -46,7 +46,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.CALL_PHONE
     };
     private LoginPresenter mLoginPresenter;
 
