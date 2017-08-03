@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
+import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckBean;
@@ -14,7 +15,9 @@ import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 import com.workapp.auto.carterminal.module.main.view.adapter.CarInfoCheckAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +37,7 @@ public class CarInfoCheckActivity extends BaseActivity {
     Button btnSave;
 
     private String mType;  //1证书 2车体部件 3车内部件 4工具部件 5车辆上传资料
+    private String mTaskId;//任务id
     private CarInfoCheckAdapter mCarInfoCheckAdapter;
 
     @Override
@@ -45,6 +49,7 @@ public class CarInfoCheckActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         mType = getIntent().getStringExtra("type");
+        mTaskId = getIntent().getStringExtra("taskId");
         switch (mType) {
             case "1":
                 setTitle("证书");
@@ -76,12 +81,13 @@ public class CarInfoCheckActivity extends BaseActivity {
     protected void initListener() {
         btnSave.setOnClickListener(v -> {
             List<CarInfoCheckBean> data = mCarInfoCheckAdapter.getData();
+            saveChange(data);
             Log.d("check", data.get(0).getStatus() + "" + data.get(1).getStatus() + "" + data.get(2).getStatus() + "" + data.get(3).getStatus() + "");
         });
     }
 
     private void getNetData() {
-        RetrofitUtil.getInstance().api().checkCarLogs("001", mType)
+        RetrofitUtil.getInstance().api().checkCarLogs(mTaskId, mType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<CarInfoCheckReturnBean>() {
@@ -215,6 +221,90 @@ public class CarInfoCheckActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    private void saveChange(List<CarInfoCheckBean> data) {
+        //1证书 2车体部件 3车内部件 4工具部件 5车辆上传资料
+        Map<String, String> map = new HashMap<>();
+        map.put("taskId", mTaskId);
+        switch (mType) {
+            case "1":
+                map.put("insuranceCertificate", data.get(0).getStatus());
+                map.put("insuranceCard", data.get(1).getStatus());
+                map.put("warrantyCard", data.get(2).getStatus());
+                map.put("carTravelLicense", data.get(3).getStatus());
+                break;
+            case "2":
+                map.put("beforePlate", data.get(0).getStatus());
+                map.put("endPlate", data.get(1).getStatus());
+                map.put("frontWheel", data.get(2).getStatus());
+                map.put("rearWheel", data.get(3).getStatus());
+                map.put("windshield", data.get(4).getStatus());
+                map.put("windowGlass", data.get(5).getStatus());
+                map.put("windscreenWiper", data.get(6).getStatus());
+                map.put("retroreflector", data.get(7).getStatus());
+                map.put("doorHandle", data.get(8).getStatus());
+                map.put("carLights", data.get(9).getStatus());
+                map.put("turnLight", data.get(10).getStatus());
+                map.put("backupLight", data.get(11).getStatus());
+                map.put("chargeJack", data.get(12).getStatus());
+                break;
+            case "3":
+                map.put("windowLifterSwitch", data.get(0).getStatus());
+                map.put("lightsSwitch", data.get(1).getStatus());
+                map.put("turnLightSwitch", data.get(2).getStatus());
+                map.put("windscreenWiperSwitch", data.get(3).getStatus());
+                map.put("handBrake", data.get(4).getStatus());
+                map.put("footBrake", data.get(5).getStatus());
+                map.put("accelerator", data.get(6).getStatus());
+                map.put("shifter", data.get(7).getStatus());
+                map.put("sound", data.get(8).getStatus());
+                map.put("horn", data.get(9).getStatus());
+                map.put("steeringWheel", data.get(10).getStatus());
+                map.put("bodyLight", data.get(11).getStatus());
+                map.put("dashBoard", data.get(12).getStatus());
+                map.put("automotiveMedia", data.get(13).getStatus());
+                map.put("airCondition", data.get(14).getStatus());
+                map.put("rearviewMirror", data.get(15).getStatus());
+                map.put("sunvisor", data.get(16).getStatus());
+                map.put("safetyBelt", data.get(17).getStatus());
+                map.put("seat", data.get(18).getStatus());
+                break;
+            case "4":
+                map.put("jack", data.get(0).getStatus());
+                map.put("kit", data.get(1).getStatus());
+                map.put("faultWarningBoard", data.get(2).getStatus());
+                map.put("spareWheel", data.get(3).getStatus());
+                map.put("fireExtinguisher", data.get(4).getStatus());
+                map.put("carKey", data.get(5).getStatus());
+                map.put("accessoryManual", data.get(6).getStatus());
+                break;
+            default:
+                break;
+        }
+        RetrofitUtil.getInstance().api().saveOrUpdateValidCarStatus(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        if (baseResponse.isSuccess()) {
+                            showMsg("提交成功");
+                        } else {
+                            showMsg(baseResponse.getMessage());
+                        }
+                    }
+                });
     }
 
 }

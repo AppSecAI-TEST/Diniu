@@ -5,9 +5,12 @@ import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
+import java.util.Map;
+
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -34,4 +37,7 @@ public interface IApiAction {
 
     @GET("returncar/CheckCarLogs")
     Observable<CarInfoCheckReturnBean> checkCarLogs(@Query("taskId") String taskId, @Query("type") String type);
+
+    @POST("returncar/saveOrUpdateValidCarStatus")
+    Observable<BaseResponse> saveOrUpdateValidCarStatus(@QueryMap Map<String, String> map);
 }
