@@ -54,7 +54,7 @@
         <activity android:name=".module.main.view.activity.ReturnCarInfoActivity">
 
         </activity>
-        <activity android:name=".module.main.view.activity.InfoCertificateActivity">
+        <activity android:name=".module.main.view.activity.CarInfoCheckActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->

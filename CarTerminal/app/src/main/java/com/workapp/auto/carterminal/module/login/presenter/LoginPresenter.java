@@ -1,5 +1,7 @@
 package com.workapp.auto.carterminal.module.login.presenter;
 
+import android.util.Log;
+
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BasePresenter;
 import com.workapp.auto.carterminal.base.MyApplication;
@@ -40,6 +42,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                             mView.hideLoading();
                             mView.toMainAct();
                             SharedPreferencesUtils.put(MyApplication.getInstance(),"X-Auth-Token",signInReturnBean.getData().getToken());
+                            Log.d("token", String.valueOf(SharedPreferencesUtils.get(MyApplication.getInstance(), "X-Auth-Token", "")));
                         } else {
                             mView.hideLoading();
                             mView.showMessage(signInReturnBean.getMessage());

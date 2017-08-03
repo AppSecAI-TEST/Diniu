@@ -27,7 +27,7 @@ public class OkHttpManager {
                         builder.addInterceptor(interceptor);
                     }
                     GlobalParameterInterceptor globalParameterInterceptor = new GlobalParameterInterceptor();
-                    /*builder.addInterceptor(globalParameterInterceptor);*/
+                    builder.addInterceptor(globalParameterInterceptor);
                     //超时时间
                     builder.connectTimeout(15, TimeUnit.SECONDS);//15S连接超时
                     builder.readTimeout(20, TimeUnit.SECONDS);//20s读取超时

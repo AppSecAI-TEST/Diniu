@@ -113,7 +113,7 @@ public class ReturnCarListReturnBean extends BaseResponse{
             private int taskId;
             private String plateNo;
             private String carModel;
-            private int canRange;
+            private double canRange;
             private int distance;
             private int power;
             private String frameNo;
@@ -142,11 +142,11 @@ public class ReturnCarListReturnBean extends BaseResponse{
                 this.carModel = carModel;
             }
 
-            public int getCanRange() {
+            public double getCanRange() {
                 return canRange;
             }
 
-            public void setCanRange(int canRange) {
+            public void setCanRange(double canRange) {
                 this.canRange = canRange;
             }
 

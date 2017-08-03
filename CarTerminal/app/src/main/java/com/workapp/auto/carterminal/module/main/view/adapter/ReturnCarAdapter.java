@@ -24,7 +24,7 @@ public class ReturnCarAdapter extends BaseQuickAdapter<ReturnCarListReturnBean.D
         helper.setText(R.id.returnCarAdapter_tv_carModel, item.getCarModel());
         helper.setText(R.id.returnCarAdapter_tv_power, item.getPower() + "%");
         helper.setText(R.id.returnCarAdapter_tv_canRange, item.getCanRange() + "km");
-        helper.setText(R.id.returnCarAdapter_tv_distance, item.getDistance());
+        helper.setText(R.id.returnCarAdapter_tv_distance, item.getDistance()+"");
 
     }
 }
