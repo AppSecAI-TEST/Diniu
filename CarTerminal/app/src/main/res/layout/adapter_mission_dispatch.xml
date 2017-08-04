@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/x350"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/x12"
+    android:layout_marginRight="@dimen/x12"
+    android:layout_marginTop="@dimen/y10"
+    android:background="@drawable/bg_adapter_item"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/x12"
+    android:paddingRight="@dimen/x12"
+    android:paddingTop="@dimen/y15">
+
+    <!--车牌-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="从"
+            android:textColor="@color/c2"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/missionDispatchAdapter_tv_startName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/xxx"
+            android:textColor="@color/ecb"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="调度"
+            android:textColor="@color/c2"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/missionDispatchAdapter_tv_carNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/xxx"
+            android:textColor="@color/ecb"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="到"
+            android:textColor="@color/c2"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/missionDispatchAdapter_tv_endName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/xxx"
+            android:textColor="@color/ecb"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <include layout="@layout/common_line" />
+
+    <!--车型、电量、续航、距离-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y15"
+        android:layout_marginTop="@dimen/y16"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/missionDispatchAdapter_tv_carModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y9"
+                android:text="@string/xxx"
+                android:textColor="@color/c2"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="车型"
+                android:textColor="#989898"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/missionDispatchAdapter_tv_power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y9"
+                android:text="@string/xxx"
+                android:textColor="@color/c2"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电量"
+                android:textColor="#989898"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/missionDispatchAdapter_tv_canRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y9"
+                android:text="@string/xxx"
+                android:textColor="@color/c2"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="续航"
+                android:textColor="#989898"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/missionDispatchAdapter_tv_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/y9"
+                android:text="@string/xxx"
+                android:textColor="@color/c2"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离"
+                android:textColor="#989898"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/common_line" />
+
+    <Button
+        android:id="@+id/missionDispatchAdapter_btn_getTask"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/x105"
+        android:layout_height="@dimen/y30"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/y10"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@drawable/bg_adapter_btn"
+        android:text="领取任务"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+</LinearLayout>

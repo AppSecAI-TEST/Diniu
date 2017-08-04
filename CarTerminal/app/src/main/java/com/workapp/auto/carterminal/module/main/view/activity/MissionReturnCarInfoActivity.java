@@ -34,7 +34,7 @@ import rx.schedulers.Schedulers;
  * Created by Administrator on 2017/8/3 0003.
  */
 
-public class ReturnCarInfoActivity extends BaseActivity {
+public class MissionReturnCarInfoActivity extends BaseActivity {
     @Bind(R.id.returnCarInfoAct_tv_returnSite)
     TextView tvReturnSite;
     @Bind(R.id.returnCarInfoAct_tv_startTime)

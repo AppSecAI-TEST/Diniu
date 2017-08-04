@@ -55,8 +55,8 @@ public class MissionFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mFragments.add(ReturnCarFragment.newInstance());
-        mFragments.add(LogFragment.newInstance());
+        mFragments.add(MissionReturnCarFragment.newInstance());
+        mFragments.add(MissionDispatchFragment.newInstance());
         viewPager.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

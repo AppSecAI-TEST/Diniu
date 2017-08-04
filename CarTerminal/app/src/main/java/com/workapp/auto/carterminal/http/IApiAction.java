@@ -3,13 +3,13 @@ package com.workapp.auto.carterminal.http;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import java.util.Map;
 
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -49,5 +49,13 @@ public interface IApiAction {
 
     @POST("returncar/updateCarStatus")
     Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+
+    @GET("dispatch/dispatchList")
+    Observable<DispatchListReturnBean> dispatchList(@Query("lat") String lat, @Query("lng") String lng,
+                                                    @Query("page") String page, @Query("size") String size,
+                                                    @Query("state") String state);
+
+    @GET("dispatch/dispatchReceive")
+    Observable<DispatchCompleteReturnBean> dispatchReceive(@Query("taskId") String taskId);
 
 }

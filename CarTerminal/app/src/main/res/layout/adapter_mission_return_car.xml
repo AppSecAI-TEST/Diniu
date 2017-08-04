@@ -26,7 +26,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/returnCarAdapter_tv_carNum"
+            android:id="@+id/missionReturnCarAdapter_tv_carNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xxx"
@@ -59,7 +59,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/returnCarAdapter_tv_carModel"
+                android:id="@+id/missionReturnCarAdapter_tv_carModel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/y9"
@@ -83,7 +83,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/returnCarAdapter_tv_power"
+                android:id="@+id/missionReturnCarAdapter_tv_power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/y9"
@@ -107,7 +107,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/returnCarAdapter_tv_canRange"
+                android:id="@+id/missionReturnCarAdapter_tv_canRange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/y9"
@@ -131,7 +131,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/returnCarAdapter_tv_distance"
+                android:id="@+id/missionReturnCarAdapter_tv_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/y9"
@@ -151,7 +151,7 @@
     <include layout="@layout/common_line" />
 
     <Button
-        android:id="@+id/returnCarAdapter_btn_getTask"
+        android:id="@+id/missionReturnCarAdapter_btn_getTask"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="@dimen/x105"
         android:layout_height="@dimen/y30"

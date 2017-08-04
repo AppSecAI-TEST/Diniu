@@ -16,8 +16,9 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseFragment;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
-import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
-import com.workapp.auto.carterminal.module.main.view.adapter.ReturnCarAdapter;
+import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
+import com.workapp.auto.carterminal.module.main.view.adapter.MissionDispatchAdapter;
+import com.workapp.auto.carterminal.module.main.view.adapter.MissionReturnCarAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 
 import java.util.List;
@@ -29,24 +30,24 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * 还车
+ * 任务——调度
  * Created by Administrator on 2017/8/2 0002.
  */
 
-public class ReturnCarFragment extends BaseFragment {
+public class MissionDispatchFragment extends BaseFragment {
 
     @Bind(R.id.common_recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.common_refreshLayout)
     SmartRefreshLayout refreshLayout;
 
-    private ReturnCarAdapter mReturnCarAdapter;
+    private MissionDispatchAdapter mMissionDispatchAdapter;
     private int mPage = 1;
     private int mSize = 10;
 
-    public static ReturnCarFragment newInstance() {
+    public static MissionDispatchFragment newInstance() {
         Bundle args = new Bundle();
-        ReturnCarFragment fragment = new ReturnCarFragment();
+        MissionDispatchFragment fragment = new MissionDispatchFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,7 +78,7 @@ public class ReturnCarFragment extends BaseFragment {
             }
         });
 
-        mReturnCarAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mMissionDispatchAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 mPage++;
@@ -95,10 +96,10 @@ public class ReturnCarFragment extends BaseFragment {
 
     private void getNetData() {
         //公司经纬度30.2765433873,119.9962377548
-        RetrofitUtil.getInstance().api().findReturnCarList(String.valueOf(30.2765433873), String.valueOf(119.9962377548), String.valueOf(100000), String.valueOf(mPage), String.valueOf(mSize), "0")
+        RetrofitUtil.getInstance().api().dispatchList(String.valueOf(30.2765433873), String.valueOf(119.9962377548), String.valueOf(mPage), String.valueOf(mSize), "0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ReturnCarListReturnBean>() {
+                .subscribe(new Subscriber<DispatchListReturnBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -110,30 +111,30 @@ public class ReturnCarFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onNext(ReturnCarListReturnBean returnCarListReturnBean) {
-                        if (returnCarListReturnBean.isSuccess()) {
-                            List<ReturnCarListReturnBean.DataBean.ContentBean> list = returnCarListReturnBean.getData().getContent();
+                    public void onNext(DispatchListReturnBean dispatchListReturnBean) {
+                        if (dispatchListReturnBean.isSuccess()) {
+                            List<DispatchListReturnBean.DataBean.ContentBean> list = dispatchListReturnBean.getData().getContent();
                             if (list != null && list.size() > 0) {
                                 if (mPage == 1) {
                                     refreshLayout.finishLoadmore();
-                                    mReturnCarAdapter.setNewData(list);
+                                    mMissionDispatchAdapter.setNewData(list);
                                 } else {
-                                    mReturnCarAdapter.addData(list);
-                                    mReturnCarAdapter.loadMoreComplete();
+                                    mMissionDispatchAdapter.addData(list);
+                                    mMissionDispatchAdapter.loadMoreComplete();
                                 }
                             } else {
                                 if (mPage == 1) {
                                     refreshLayout.finishLoadmore();
                                 } else {
-                                    mReturnCarAdapter.loadMoreEnd();
+                                    mMissionDispatchAdapter.loadMoreEnd();
                                 }
                             }
                         } else {
-                            ToastUtils.showShort(MyApplication.getInstance(), returnCarListReturnBean.getMessage());
+                            ToastUtils.showShort(MyApplication.getInstance(), dispatchListReturnBean.getMessage());
                             if (mPage == 1) {
                                 refreshLayout.finishRefresh();
                             } else {
-                                mReturnCarAdapter.loadMoreFail();
+                                mMissionDispatchAdapter.loadMoreFail();
                             }
                         }
                     }
@@ -142,8 +143,8 @@ public class ReturnCarFragment extends BaseFragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mReturnCarAdapter = new ReturnCarAdapter(getActivity());
-        recyclerView.setAdapter(mReturnCarAdapter);
+        mMissionDispatchAdapter = new MissionDispatchAdapter(getActivity());
+        recyclerView.setAdapter(mMissionDispatchAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
     }
 }
