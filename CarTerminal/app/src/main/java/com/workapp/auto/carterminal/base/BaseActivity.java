@@ -22,7 +22,6 @@ import com.workapp.auto.carterminal.utils.ToastUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected String tag = getClass().getSimpleName();
-
     private FrameLayout flBaseContent;
     private RelativeLayout rlTitle;
     private ImageView ivBack;
