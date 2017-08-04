@@ -13,6 +13,14 @@ import android.widget.TextView;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.services.core.AMapException;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.route.BusRouteResult;
+import com.amap.api.services.route.DrivePath;
+import com.amap.api.services.route.DriveRouteResult;
+import com.amap.api.services.route.RideRouteResult;
+import com.amap.api.services.route.RouteSearch;
+import com.amap.api.services.route.WalkRouteResult;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -28,6 +36,7 @@ import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.MissionReturnCarInfoActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionReturnCarAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
+import com.workapp.auto.carterminal.widget.aMap.DrivingRouteOverLay;
 
 import java.util.List;
 
@@ -218,7 +227,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
     }
 
-    public void showMap(CurrentTaskReturnBean currentTaskReturnBean) {
+    public void showMap(CurrentTaskReturnBean currentTaskReturnBean, double currentLat, double currentLng) {
         CurrentTaskReturnBean.DataBean data = currentTaskReturnBean.getData();
         refreshLayout.setVisibility(View.GONE);
         rlMap.setVisibility(View.VISIBLE);
@@ -226,6 +235,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         mEndLat = data.getLat();
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
+        drawMapLine(currentLat, currentLng);
     }
 
     public void hideMap() {
@@ -260,4 +270,80 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                     }
                 });
     }
+
+    private void drawMapLine(double currentLat, double currentLng) {
+        RouteSearch routeSearch = new RouteSearch(getActivity());
+        LatLonPoint latLonPointStart = new LatLonPoint(currentLat, currentLng);
+        LatLonPoint latLonPointEnd = new LatLonPoint(mEndLat, mEndLng);
+        RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(latLonPointStart, latLonPointEnd);
+        RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_SINGLE_DEFAULT, null, null, "");
+        routeSearch.calculateDriveRouteAsyn(query);
+        routeSearch.setRouteSearchListener(new RouteSearch.OnRouteSearchListener() {
+            @Override
+            public void onBusRouteSearched(BusRouteResult busRouteResult, int i) {
+
+            }
+
+            @Override
+            public void onDriveRouteSearched(DriveRouteResult result, int errorCode) {
+                aMap.clear();// 清理地图上的所有覆盖物
+                if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
+                    if (result != null && result.getPaths() != null) {
+                        if (result.getPaths().size() > 0) {
+                            DriveRouteResult mDriveRouteResult = result;
+                            final DrivePath drivePath = mDriveRouteResult.getPaths()
+                                    .get(0);
+                            DrivingRouteOverLay drivingRouteOverlay = new DrivingRouteOverLay(
+                                    getActivity(), aMap, drivePath,
+                                    mDriveRouteResult.getStartPos(),
+                                    mDriveRouteResult.getTargetPos(), null);
+                            drivingRouteOverlay.setNodeIconVisibility(false);//设置节点marker是否显示
+                            drivingRouteOverlay.setIsColorfulline(true);//是否用颜色展示交通拥堵情况，默认true
+                            drivingRouteOverlay.removeFromMap();
+                            drivingRouteOverlay.addToMap();
+                            drivingRouteOverlay.zoomToSpan();
+                          /*  mBottomLayout.setVisibility(View.VISIBLE);
+                            int dis = (int) drivePath.getDistance();
+                            int dur = (int) drivePath.getDuration();
+                            String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+                            mRotueTimeDes.setText(des);
+                            mRouteDetailDes.setVisibility(View.VISIBLE);
+                            int taxiCost = (int) mDriveRouteResult.getTaxiCost();
+                            mRouteDetailDes.setText("打车约"+taxiCost+"元");
+                            mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(mContext,
+                                            DriveRouteDetailActivity.class);
+                                    intent.putExtra("drive_path", drivePath);
+                                    intent.putExtra("drive_result",
+                                            mDriveRouteResult);
+                                    startActivity(intent);
+                                }
+                            });*/
+                        } else if (result != null && result.getPaths() == null) {
+                            ToastUtils.showShort(MyApplication.getInstance(), R.string.no_result);
+                        }
+
+                    } else {
+                        ToastUtils.showShort(MyApplication.getInstance(), R.string.no_result);
+                    }
+                } else {
+                    ToastUtils.showShort(MyApplication.getInstance(), errorCode+"");
+                }
+
+            }
+
+            @Override
+            public void onWalkRouteSearched(WalkRouteResult walkRouteResult, int i) {
+
+            }
+
+            @Override
+            public void onRideRouteSearched(RideRouteResult rideRouteResult, int i) {
+
+            }
+        });
+    }
+
 }

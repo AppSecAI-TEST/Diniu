@@ -52,8 +52,9 @@ public class MissionFragment extends BaseFragment {
     private List<Fragment> mFragments = new ArrayList<>();
     private AMapLocationClientOption mLocationOption = null;  //高德定位
     private AMapLocationClient mLocationClient;
-    private double mLatitude;                                //纬度
-    private double mLongitude;                               //经度
+    private double mLatitude;                                //当前纬度
+    private double mLongitude;                               //当前经度
+    private boolean firstGetLngLat = true;
 
     public static MissionFragment newInstance() {
         Bundle args = new Bundle();
@@ -75,7 +76,6 @@ public class MissionFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        getCurrentTask();
         mFragments.add(MissionReturnCarFragment.newInstance());
         mFragments.add(MissionDispatchFragment.newInstance());
         viewPager.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
@@ -145,6 +145,10 @@ public class MissionFragment extends BaseFragment {
                        /* SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);//定位时间*/
+                       if(firstGetLngLat){
+                           getCurrentTask();
+                           firstGetLngLat = false;
+                       }
                     } else {
                         //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                         Log.e("AmapError", "location Error, ErrCode:"
@@ -181,11 +185,11 @@ public class MissionFragment extends BaseFragment {
                             tabLayout.setVisibility(View.GONE);
                             ivTitle.setVisibility(View.GONE);
                             if (currentTaskReturnBean.getData().getTaskType().equals("0")) {
-                                missionReturnCarFragment.showMap(currentTaskReturnBean);
+                                missionReturnCarFragment.showMap(currentTaskReturnBean, mLatitude, mLongitude);
                                 missionDispatchAdapter.hideMap();
                             } else {
                                 missionReturnCarFragment.hideMap();
-                                missionDispatchAdapter.showMap(currentTaskReturnBean);
+                                missionDispatchAdapter.showMap(currentTaskReturnBean, mLatitude, mLongitude);
                             }
                         } else {
                             tabLayout.setVisibility(View.VISIBLE);

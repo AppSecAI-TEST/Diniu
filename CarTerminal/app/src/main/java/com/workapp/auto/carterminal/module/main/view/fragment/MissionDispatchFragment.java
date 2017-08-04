@@ -219,7 +219,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
     }
 
-    public void showMap(CurrentTaskReturnBean currentTaskReturnBean) {
+    public void showMap(CurrentTaskReturnBean currentTaskReturnBean, double currentLat, double currentLng) {
         CurrentTaskReturnBean.DataBean data = currentTaskReturnBean.getData();
         refreshLayout.setVisibility(View.GONE);
         rlMap.setVisibility(View.VISIBLE);
@@ -228,6 +228,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         mEndLat = data.getLat();
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
+        drawMapLine(currentLat,currentLng);
     }
 
     public void hideMap() {
@@ -261,5 +262,9 @@ public class MissionDispatchFragment extends BaseMapFragment {
                         }
                     }
                 });
+    }
+
+    private void drawMapLine(double currentLat, double currentLng){
+
     }
 }
