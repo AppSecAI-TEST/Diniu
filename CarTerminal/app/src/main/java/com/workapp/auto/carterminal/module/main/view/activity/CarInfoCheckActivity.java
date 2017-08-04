@@ -124,7 +124,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean certificate2;
                 CarInfoCheckBean certificate3;
                 CarInfoCheckBean certificate4;
-                if (data != null) {
+                if (data != null && data.getInsuranceCertificate() != null) {
                     certificate1 = new CarInfoCheckBean("交强险凭证", data.getInsuranceCertificate());
                     certificate2 = new CarInfoCheckBean("保险卡", data.getInsuranceCard());
                     certificate3 = new CarInfoCheckBean("保修保养卡", data.getWarrantyCard());
@@ -155,7 +155,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean outCar11;
                 CarInfoCheckBean outCar12;
                 CarInfoCheckBean outCar13;
-                if (data != null) {
+                if (data != null && data.getBeforePlate() != null) {
                     outCar1 = new CarInfoCheckBean("前号牌", data.getBeforePlate());
                     outCar2 = new CarInfoCheckBean("后车牌", data.getEndPlate());
                     outCar3 = new CarInfoCheckBean("前车轮", data.getFrontWheel());
@@ -219,7 +219,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean innerCar17;
                 CarInfoCheckBean innerCar18;
                 CarInfoCheckBean innerCar19;
-                if (data != null) {
+                if (data != null && data.getInsuranceCertificate() != null) {
                     innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getInsuranceCertificate());
                     innerCar2 = new CarInfoCheckBean("车灯开关", data.getInsuranceCard());
                     innerCar3 = new CarInfoCheckBean("转向灯开关", data.getWarrantyCard());
@@ -289,7 +289,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean tool5;
                 CarInfoCheckBean tool6;
                 CarInfoCheckBean tool7;
-                if (data != null) {
+                if (data != null && data.getJack() != null) {
                     tool1 = new CarInfoCheckBean("千斤顶", data.getJack());
                     tool2 = new CarInfoCheckBean("工具包", data.getKit());
                     tool3 = new CarInfoCheckBean("故障警示牌", data.getFaultWarningBoard());
