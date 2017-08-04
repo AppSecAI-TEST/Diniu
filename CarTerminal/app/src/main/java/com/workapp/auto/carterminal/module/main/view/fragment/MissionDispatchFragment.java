@@ -116,7 +116,7 @@ public class MissionDispatchFragment extends BaseFragment {
                             List<DispatchListReturnBean.DataBean.ContentBean> list = dispatchListReturnBean.getData().getContent();
                             if (list != null && list.size() > 0) {
                                 if (mPage == 1) {
-                                    refreshLayout.finishLoadmore();
+                                    refreshLayout.finishRefresh();
                                     mMissionDispatchAdapter.setNewData(list);
                                 } else {
                                     mMissionDispatchAdapter.addData(list);
@@ -124,7 +124,7 @@ public class MissionDispatchFragment extends BaseFragment {
                                 }
                             } else {
                                 if (mPage == 1) {
-                                    refreshLayout.finishLoadmore();
+                                    refreshLayout.finishRefresh();
                                 } else {
                                     mMissionDispatchAdapter.loadMoreEnd();
                                 }

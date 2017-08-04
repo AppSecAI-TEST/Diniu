@@ -115,7 +115,7 @@ public class MissionReturnCarFragment extends BaseFragment {
                             List<ReturnCarListReturnBean.DataBean.ContentBean> list = returnCarListReturnBean.getData().getContent();
                             if (list != null && list.size() > 0) {
                                 if (mPage == 1) {
-                                    refreshLayout.finishLoadmore();
+                                    refreshLayout.finishRefresh();
                                     mMissionReturnCarAdapter.setNewData(list);
                                 } else {
                                     mMissionReturnCarAdapter.addData(list);
@@ -123,7 +123,7 @@ public class MissionReturnCarFragment extends BaseFragment {
                                 }
                             } else {
                                 if (mPage == 1) {
-                                    refreshLayout.finishLoadmore();
+                                    refreshLayout.finishRefresh();
                                 } else {
                                     mMissionReturnCarAdapter.loadMoreEnd();
                                 }
