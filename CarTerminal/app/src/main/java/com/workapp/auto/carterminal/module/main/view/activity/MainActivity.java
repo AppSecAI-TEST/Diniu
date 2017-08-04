@@ -10,6 +10,7 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.module.main.view.fragment.LogFragment;
 import com.workapp.auto.carterminal.module.main.view.fragment.MissionFragment;
+import com.workapp.auto.carterminal.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.mainAct_tabLayout)
     SegmentTabLayout tabLayout;
     @Bind(R.id.mainAct_viewPager)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
 
     private String[] mTitles = {"任务", "日志"};
     private List<Fragment> mFragments = new ArrayList<>();

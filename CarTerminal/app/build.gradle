@@ -13,12 +13,26 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
+
+    signingConfigs {
+        release {
+            storeFile file("carTerminal.keystore")
+            storePassword "123456"
+            keyAlias "carTerminal"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 
     compileOptions {//使用JAVA8语法解析
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -51,4 +65,8 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
     /*adapterHelper*/
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    /*高德地图*/
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
 }

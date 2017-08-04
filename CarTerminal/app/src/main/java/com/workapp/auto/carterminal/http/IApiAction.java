@@ -3,6 +3,7 @@ package com.workapp.auto.carterminal.http;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
@@ -57,5 +58,11 @@ public interface IApiAction {
 
     @GET("dispatch/dispatchReceive")
     Observable<DispatchCompleteReturnBean> dispatchReceive(@Query("taskId") String taskId);
+
+    @GET("task/getCurrentTask")
+    Observable<CurrentTaskReturnBean> getCurrentTask(@Query("lat") String lat, @Query("lng") String lng);
+
+    @POST("task/getTask")
+    Observable<BaseResponse> getTask(@Query("taskId") String taskId, @Query("taskType") String taskType);
 
 }
