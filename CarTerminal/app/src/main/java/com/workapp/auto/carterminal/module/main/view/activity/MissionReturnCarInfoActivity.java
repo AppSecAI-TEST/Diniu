@@ -225,6 +225,12 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getNetData();
+    }
+
     private void getNetData() {
         RetrofitUtil.getInstance().api().returnCarReceiveDetail(mTaskId)
                 .subscribeOn(Schedulers.io())

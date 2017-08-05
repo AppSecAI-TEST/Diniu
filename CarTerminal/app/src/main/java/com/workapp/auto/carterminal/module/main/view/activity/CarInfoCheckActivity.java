@@ -327,12 +327,14 @@ public class CarInfoCheckActivity extends BaseActivity {
         map.put("taskId", mTaskId);
         switch (mType) {
             case "1":
+                map.put("type", "1");
                 map.put("insuranceCertificate", data.get(0).getStatus());
                 map.put("insuranceCard", data.get(1).getStatus());
                 map.put("warrantyCard", data.get(2).getStatus());
                 map.put("carTravelLicense", data.get(3).getStatus());
                 break;
             case "2":
+                map.put("type", "2");
                 map.put("beforePlate", data.get(0).getStatus());
                 map.put("endPlate", data.get(1).getStatus());
                 map.put("frontWheel", data.get(2).getStatus());
@@ -348,6 +350,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 map.put("chargeJack", data.get(12).getStatus());
                 break;
             case "3":
+                map.put("type", "3");
                 map.put("windowLifterSwitch", data.get(0).getStatus());
                 map.put("lightsSwitch", data.get(1).getStatus());
                 map.put("turnLightSwitch", data.get(2).getStatus());
@@ -369,6 +372,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 map.put("seat", data.get(18).getStatus());
                 break;
             case "4":
+                map.put("type", "4");
                 map.put("jack", data.get(0).getStatus());
                 map.put("kit", data.get(1).getStatus());
                 map.put("faultWarningBoard", data.get(2).getStatus());
@@ -398,6 +402,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
                             showMsg("提交成功");
+                            finish();
                         } else {
                             showMsg(baseResponse.getMessage());
                         }
