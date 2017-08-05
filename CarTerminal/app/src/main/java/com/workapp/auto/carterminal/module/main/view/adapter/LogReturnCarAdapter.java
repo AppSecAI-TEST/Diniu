@@ -10,6 +10,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
+import com.workapp.auto.carterminal.module.main.view.activity.MissionReturnCarInfoActivity;
+import com.workapp.auto.carterminal.module.main.view.activity.ReturnCarCompleteActivity;
 
 /**
  * 日志——还车adapter
@@ -51,9 +53,9 @@ public class LogReturnCarAdapter extends BaseQuickAdapter<ReturnCarListReturnBea
 
         LinearLayout llClick = helper.getView(R.id.logReturnCarAdapter_ll_status);
         llClick.setOnClickListener(v -> {
-//            Intent intent = new Intent(mContext, )
-//            intent.putExtra("taskId", item.getTaskId()+"");
-//            mContext.startActivity(intent);
+            Intent intent = new Intent(mContext,ReturnCarCompleteActivity.class);
+            intent.putExtra("taskId",item.getTaskId()+"");
+            mContext.startActivity(intent);
         });
 
     }

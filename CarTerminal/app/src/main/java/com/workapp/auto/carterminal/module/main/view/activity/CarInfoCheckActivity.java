@@ -39,6 +39,7 @@ public class CarInfoCheckActivity extends BaseActivity {
     private String mType;  //1证书 2车体部件 3车内部件 4工具部件 5车辆上传资料
     private String mTaskId;//任务id
     private CarInfoCheckAdapter mCarInfoCheckAdapter;
+    private boolean isCanSelect;                        //是否能选择
 
     @Override
     protected int getLayout() {
@@ -50,6 +51,7 @@ public class CarInfoCheckActivity extends BaseActivity {
         ButterKnife.bind(this);
         mType = getIntent().getStringExtra("type");
         mTaskId = getIntent().getStringExtra("taskId");
+        isCanSelect = getIntent().getBooleanExtra("isCanSelect",true);
         switch (mType) {
             case "1":
                 setTitle("证书");
@@ -68,7 +70,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 break;
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mCarInfoCheckAdapter = new CarInfoCheckAdapter();
+        mCarInfoCheckAdapter = new CarInfoCheckAdapter(isCanSelect);
         recyclerView.setAdapter(mCarInfoCheckAdapter);
     }
 

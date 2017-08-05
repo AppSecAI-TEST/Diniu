@@ -19,9 +19,10 @@ import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckBean;
  */
 
 public class CarInfoCheckAdapter extends BaseQuickAdapter<CarInfoCheckBean, BaseViewHolder> {
-
-    public CarInfoCheckAdapter() {
+    private boolean mIsCanSelect;                        //是否能选择
+    public CarInfoCheckAdapter( boolean isCanSelect) {
         super(R.layout.adapter_car_info_check);
+        this.mIsCanSelect = isCanSelect;
     }
 
     @Override
@@ -87,6 +88,17 @@ public class CarInfoCheckAdapter extends BaseQuickAdapter<CarInfoCheckBean, Base
                 notifyDataSetChanged();
             }
         });
+
+        /*
+         * 完成时不能点击
+         */
+        if(mIsCanSelect){
+            llClick.setEnabled(true);
+            ivArrow.setVisibility(View.VISIBLE);
+        }else{
+            llClick.setEnabled(false);
+            ivArrow.setVisibility(View.GONE);
+        }
 
     }
 }

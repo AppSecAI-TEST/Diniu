@@ -59,7 +59,7 @@
         <activity android:name=".module.main.view.activity.MissionReturnCarInfoActivity"/>
         <activity android:name=".module.main.view.activity.CarInfoCheckActivity"/>
         <activity android:name=".module.main.view.activity.DispatchCompleteActivity"/>
-
+        <activity android:name=".module.main.view.activity.ReturnCarCompleteActivity"/>
         <service android:name="com.amap.api.location.APSService"/>
     </application>
 

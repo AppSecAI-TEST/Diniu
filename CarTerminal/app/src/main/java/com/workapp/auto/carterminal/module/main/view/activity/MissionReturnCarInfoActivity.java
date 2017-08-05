@@ -415,6 +415,10 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
                             showMsg("提交成功");
+                            Intent intent = new Intent(MissionReturnCarInfoActivity.this,ReturnCarCompleteActivity.class);
+                            intent.putExtra("taskId",mTaskId);
+                            startActivity(intent);
+                            finish();
                         } else {
                             showMsg(baseResponse.getMessage());
                         }
