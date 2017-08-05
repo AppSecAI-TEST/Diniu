@@ -38,7 +38,7 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
-import com.workapp.auto.carterminal.module.main.view.activity.MissionDispatchCompleteActivity;
+import com.workapp.auto.carterminal.module.main.view.activity.DispatchCompleteActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionDispatchAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 import com.workapp.auto.carterminal.widget.aMap.DrivingRouteOverLay;
@@ -154,7 +154,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         });
 
         btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MissionDispatchCompleteActivity.class);
+            Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
             intent.putExtra("taskId", mTaskId);
             getActivity().startActivity(intent);
         });

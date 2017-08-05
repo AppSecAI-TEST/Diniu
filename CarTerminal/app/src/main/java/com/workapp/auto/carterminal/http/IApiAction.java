@@ -41,6 +41,9 @@ public interface IApiAction {
                                                           @Query("range") String range, @Query("page") String page,
                                                           @Query("size") String size, @Query("handleState") String handleState);
 
+    @GET("returncar/findReturnCarList")
+    Observable<ReturnCarListReturnBean> findReturnCarList( @Query("range") String range,@Query("page") String page, @Query("size") String size, @Query("handleState") String handleState);
+
     @GET("returncar/CheckCarLogs")
     Observable<CarInfoCheckReturnBean> checkCarLogs(@Query("taskId") String taskId, @Query("type") String type);
 

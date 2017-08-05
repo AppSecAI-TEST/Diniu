@@ -6,7 +6,6 @@
 
     <!--列表-->
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:visibility="gone"
         android:id="@+id/common_refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

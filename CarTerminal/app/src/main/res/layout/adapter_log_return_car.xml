@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="@dimen/x350"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/x12"
+              android:layout_marginRight="@dimen/x12"
+              android:layout_marginTop="@dimen/y10"
+              android:background="@drawable/bg_adapter_item"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/x12"
+              android:paddingRight="@dimen/x12"
+              android:paddingTop="@dimen/y15">
+
+    <!--完成状态-->
+    <LinearLayout
+        android:id="@+id/logReturnCarAdapter_ll_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/x12"
+        android:paddingRight="@dimen/x12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y18"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/logReturnCarAdapter_tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/xxx"
+                android:textColor="@color/c2"
+                android:textSize="15sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/enter_2"/>
+        </LinearLayout>
+
+        <include layout="@layout/common_line"/>
+    </LinearLayout>
+
+    <!--开始完成时间-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:layout_marginTop="@dimen/y7"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/x12"
+        android:paddingRight="@dimen/x12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y11"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/x8"
+                android:layout_height="@dimen/x8"
+                android:layout_marginRight="@dimen/x7"
+                android:src="@drawable/drawable_blue_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x79"
+                android:text="开始时间"
+                android:textColor="#5c5c5c"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/logReturnCarAdapter_tv_starTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xxx"
+                android:textColor="#2f2f2f"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/x8"
+                android:layout_height="@dimen/x8"
+                android:layout_marginRight="@dimen/x7"
+                android:src="@drawable/drawable_red_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/x79"
+                android:text="完成时间"
+                android:textColor="#5c5c5c"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/logReturnCarAdapter_tv_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xxx"
+                android:textColor="#2f2f2f"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--任务-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y7"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/x12"
+        android:paddingRight="@dimen/x12">
+
+        <include layout="@layout/common_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/y15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="将"
+                android:textColor="#2c2c2c"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/logReturnCarAdapter_tv_endName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xxx"
+                android:textColor="#edb12e"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="附近的"
+                android:textColor="#2c2c2c"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/logReturnCarAdapter_tv_plateNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xxx"
+                android:textColor="#edb12e"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="完成还车"
+                android:textColor="#2c2c2c"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

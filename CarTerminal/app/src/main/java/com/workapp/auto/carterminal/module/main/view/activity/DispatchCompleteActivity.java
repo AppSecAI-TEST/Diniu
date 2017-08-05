@@ -15,11 +15,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * 任务——调度——已完成页
+ * 调度——已完成页
  * Created by Administrator on 2017/8/4 0004.
  */
 
-public class MissionDispatchCompleteActivity extends BaseActivity {
+public class DispatchCompleteActivity extends BaseActivity {
     @Bind(R.id.missionDisComAct_tv_starTime)
     TextView tvStarTime;
     @Bind(R.id.missionDisComAct_tv_endTime)

@@ -4,11 +4,12 @@ import com.workapp.auto.carterminal.base.BaseResponse;
 
 import java.util.List;
 
-/**调度列表
+/**
+ * 调度列表
  * Created by Administrator on 2017/8/4 0004.
  */
 
-public class DispatchListReturnBean extends BaseResponse{
+public class DispatchListReturnBean extends BaseResponse {
 
     /**
      * data : {"content":[{"taskId":"3","plateNo":"浙B157w8","startName":"站点名称1","endName":"站点名称4","distance":7659269,"carModel":"车型1","power":0,"canRange":0,"frameNo":"LD923A168G9CDL266"}],"page":1,"size":5,"pages":1,"total":3,"first":true,"last":true}
@@ -121,6 +122,24 @@ public class DispatchListReturnBean extends BaseResponse{
             private int power;
             private int canRange;
             private String frameNo;
+            private String startTime;
+            private String endTime;
+
+            public String getStartTime() {
+                return startTime;
+            }
+
+            public void setStartTime(String startTime) {
+                this.startTime = startTime;
+            }
+
+            public String getEndTime() {
+                return endTime;
+            }
+
+            public void setEndTime(String endTime) {
+                this.endTime = endTime;
+            }
 
             public String getTaskId() {
                 return taskId;

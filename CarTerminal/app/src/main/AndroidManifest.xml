@@ -58,7 +58,7 @@
         <activity android:name=".base.PermissionsActivity"/>
         <activity android:name=".module.main.view.activity.MissionReturnCarInfoActivity"/>
         <activity android:name=".module.main.view.activity.CarInfoCheckActivity"/>
-        <activity android:name=".module.main.view.activity.MissionDispatchCompleteActivity"/>
+        <activity android:name=".module.main.view.activity.DispatchCompleteActivity"/>
 
         <service android:name="com.amap.api.location.APSService"/>
     </application>
