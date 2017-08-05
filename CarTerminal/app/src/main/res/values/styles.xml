@@ -16,7 +16,26 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
+    <style name="selctVideoDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@color/t80fff</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="select_button1">
+        <item name="android:background">@drawable/photo_dot</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:text">@string/photo</item>
+    </style>
+    <style name="select_button2">
+        <item name="android:background">@drawable/video_dot</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:text">@string/video</item>
+    </style>
     <style name="Dialog" parent="android:style/Theme.Dialog">
         <item name="android:background">#00000000</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -28,7 +47,25 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/c2</item>
     </style>
-
+   <style name="style_upload_pic">
+       <item name="android:layout_width">@dimen/x138</item>
+       <item name="android:layout_height">@dimen/y138</item>
+       <item name="android:scaleType">centerInside</item>
+   </style>
+    <style name="style_text_pic">
+        <item name="android:paddingTop">@dimen/y12</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/t66</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="style_btn_pic" parent="@android:style/Widget.Material.Button.Borderless">
+        <item name="android:layout_height">@dimen/y32</item>
+        <item name="android:layout_width">@dimen/x139</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">@dimen/y12</item>
+        <item name="android:background">@drawable/rectange_btn</item>
+    </style>
     <style name="ReturnCarInfoTextStyle">
         <item name="android:textColor">@color/c2</item>
         <item name="android:textSize">14sp</item>

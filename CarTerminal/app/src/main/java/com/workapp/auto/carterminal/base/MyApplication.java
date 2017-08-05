@@ -1,5 +1,6 @@
 package com.workapp.auto.carterminal.base;
 
+
 import android.support.multidex.MultiDexApplication;
 
 /** 应用程序实体

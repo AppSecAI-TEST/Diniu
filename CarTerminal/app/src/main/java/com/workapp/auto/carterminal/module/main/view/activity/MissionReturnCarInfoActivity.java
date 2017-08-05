@@ -1,6 +1,7 @@
 package com.workapp.auto.carterminal.module.main.view.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
+import com.workapp.auto.carterminal.widget.SelectDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -111,6 +113,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
 
     private String mTaskId;//任务id
     private int mState = -1; //验车说明 0、正常入库 1、待维修 2、报废
+    private int REQUEST_CODE=12;
 
     @Override
     protected int getLayout() {
@@ -175,6 +178,24 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
             intent.putExtra("type","5");
             intent.putExtra("taskId",mTaskId);
             startActivity(intent);*/
+            SelectDialog.Builder builder = new SelectDialog.Builder(this);
+            builder.setNegativeButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                     dialog.dismiss();
+                    Intent record=new Intent(MissionReturnCarInfoActivity.this,RecordActivity.class);
+                    startActivityForResult(record,REQUEST_CODE);
+                }
+            });
+           builder.setPositiveButton(new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                 dialog.dismiss();
+                   Intent pic=new Intent(MissionReturnCarInfoActivity.this,CarPictureActivity.class);
+                   startActivityForResult(pic,REQUEST_CODE);
+               }
+           });
+          builder.create().show();
         });
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

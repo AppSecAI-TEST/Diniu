@@ -73,4 +73,6 @@
     <color name="c2">#2c2c2c</color>
     <color name="ecb">#ecb02d</color>
     <color name="bg_grey">#FAFAFA</color>
+    <color name="t80fff">#80ffffff</color>
+    <color name="t3bb">#3BB2EC</color>
 </resources>

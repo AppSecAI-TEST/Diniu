@@ -31,11 +31,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
@@ -47,8 +48,10 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     /*刷新*/
-    compile 'com.android.support:appcompat-v7:25.3.1'//版本随意
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    //版本随意
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-6'
     /*adapterHelper*/
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile project(':camera')
 }

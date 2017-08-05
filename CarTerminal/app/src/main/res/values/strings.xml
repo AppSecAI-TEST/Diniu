@@ -8,4 +8,6 @@
     <string name="xxx">xxx</string>
     <string name="next">下一步</string>
     <string name="network_on_error">网络异常，请检查您的网络</string>
+    <string name="video">视频上传</string>
+    <string name="photo">照片上传</string>
 </resources>
