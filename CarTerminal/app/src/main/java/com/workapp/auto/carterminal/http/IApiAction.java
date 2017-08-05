@@ -11,6 +11,8 @@ import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import java.util.Map;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -48,8 +50,12 @@ public interface IApiAction {
     @GET("returncar/returnCarReceiveDetail")
     Observable<ReturnCarDetailReturnBean> returnCarReceiveDetail(@Query("taskId") String taskId);
 
+//    @POST("returncar/updateCarStatus")
+//    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+
     @POST("returncar/updateCarStatus")
-    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+    @FormUrlEncoded
+    Observable<BaseResponse> updateCarStatus(@Field("taskId") String taskId, @Field("state") String state,@Field("remarks") String remarks);
 
     @GET("dispatch/dispatchList")
     Observable<DispatchListReturnBean> dispatchList(@Query("lat") String lat, @Query("lng") String lng,
