@@ -3,6 +3,9 @@ package com.workapp.auto.carterminal.module.main.view.activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.widget.RelativeLayout;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -19,7 +22,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-
+    @Bind(R.id.dl_main)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.mainAct_rl_leftClick)
+    RelativeLayout rvLeftClick;
     @Bind(R.id.mainAct_tabLayout)
     SegmentTabLayout tabLayout;
     @Bind(R.id.mainAct_viewPager)
@@ -37,6 +43,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         hideTitle();
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         tabLayout.setTabData(mTitles);
         mFragments.add(MissionFragment.newInstance());
         mFragments.add(LogFragment.newInstance());
@@ -92,6 +99,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        rvLeftClick.setOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                drawerLayout.closeDrawer(Gravity.LEFT);
+            } else {
+                drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
     }
