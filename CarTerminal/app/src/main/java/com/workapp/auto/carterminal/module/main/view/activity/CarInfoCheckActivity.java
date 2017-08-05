@@ -227,7 +227,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean innerCar17;
                 CarInfoCheckBean innerCar18;
                 CarInfoCheckBean innerCar19;
-                if (data != null && data.getInsuranceCertificate() != null) {
+                if (data != null && data.getWindowLifterSwitch() != null) {
                     innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getWindowLifterSwitch());
                     innerCar2 = new CarInfoCheckBean("车灯开关", data.getLightsSwitch());
                     innerCar3 = new CarInfoCheckBean("转向灯开关", data.getTurnLightSwitch());
