@@ -10,6 +10,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/missionFrg_iv_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y69"
             android:scaleType="fitXY"
@@ -26,7 +27,7 @@
             app:tabSelectedTextColor="@color/d8"
             app:tabTextAppearance="@style/TabLayoutTextStyle"/>
 
-        <android.support.v4.view.ViewPager
+        <com.workapp.auto.carterminal.widget.NoScrollViewPager
             android:id="@+id/missionFrg_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

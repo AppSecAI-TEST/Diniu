@@ -16,6 +16,8 @@ public abstract class BaseLazyFragment extends Fragment {
     protected boolean isVisible;
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
+    //已经初始化过了
+    private  boolean  isInit;
 
     @Nullable//@Nullable 表示定义的字段可以为空.
     @Override
@@ -57,11 +59,12 @@ public abstract class BaseLazyFragment extends Fragment {
     }
 
     protected void lazyLoad() {
-        if(!isPrepared || !isVisible) {
+        if(!isPrepared || !isVisible || isInit) {
             return;
         }
         initData();
         initListener();
+        isInit = true;
     }
 
     protected void onInvisible() {

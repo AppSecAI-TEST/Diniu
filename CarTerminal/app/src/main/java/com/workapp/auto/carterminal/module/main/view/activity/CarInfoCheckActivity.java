@@ -3,6 +3,7 @@ package com.workapp.auto.carterminal.module.main.view.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.workapp.auto.carterminal.R;
@@ -39,6 +40,7 @@ public class CarInfoCheckActivity extends BaseActivity {
     private String mType;  //1证书 2车体部件 3车内部件 4工具部件 5车辆上传资料
     private String mTaskId;//任务id
     private CarInfoCheckAdapter mCarInfoCheckAdapter;
+    private boolean isCanSelect;                        //是否能选择
 
     @Override
     protected int getLayout() {
@@ -50,6 +52,12 @@ public class CarInfoCheckActivity extends BaseActivity {
         ButterKnife.bind(this);
         mType = getIntent().getStringExtra("type");
         mTaskId = getIntent().getStringExtra("taskId");
+        isCanSelect = getIntent().getBooleanExtra("isCanSelect",true);
+        if(isCanSelect){
+            btnSave.setVisibility(View.VISIBLE);
+        }else {
+            btnSave.setVisibility(View.GONE);
+        }
         switch (mType) {
             case "1":
                 setTitle("证书");
@@ -68,7 +76,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 break;
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mCarInfoCheckAdapter = new CarInfoCheckAdapter();
+        mCarInfoCheckAdapter = new CarInfoCheckAdapter(isCanSelect);
         recyclerView.setAdapter(mCarInfoCheckAdapter);
     }
 
@@ -124,7 +132,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean certificate2;
                 CarInfoCheckBean certificate3;
                 CarInfoCheckBean certificate4;
-                if (data != null) {
+                if (data != null && data.getInsuranceCertificate() != null) {
                     certificate1 = new CarInfoCheckBean("交强险凭证", data.getInsuranceCertificate());
                     certificate2 = new CarInfoCheckBean("保险卡", data.getInsuranceCard());
                     certificate3 = new CarInfoCheckBean("保修保养卡", data.getWarrantyCard());
@@ -155,7 +163,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean outCar11;
                 CarInfoCheckBean outCar12;
                 CarInfoCheckBean outCar13;
-                if (data != null) {
+                if (data != null && data.getBeforePlate() != null) {
                     outCar1 = new CarInfoCheckBean("前号牌", data.getBeforePlate());
                     outCar2 = new CarInfoCheckBean("后车牌", data.getEndPlate());
                     outCar3 = new CarInfoCheckBean("前车轮", data.getFrontWheel());
@@ -219,11 +227,11 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean innerCar17;
                 CarInfoCheckBean innerCar18;
                 CarInfoCheckBean innerCar19;
-                if (data != null) {
-                    innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getInsuranceCertificate());
-                    innerCar2 = new CarInfoCheckBean("车灯开关", data.getInsuranceCard());
-                    innerCar3 = new CarInfoCheckBean("转向灯开关", data.getWarrantyCard());
-                    innerCar4 = new CarInfoCheckBean("雨刮器开关", data.getCarTravelLicense());
+                if (data != null && data.getWindowLifterSwitch() != null) {
+                    innerCar1 = new CarInfoCheckBean("车窗升降开关", data.getWindowLifterSwitch());
+                    innerCar2 = new CarInfoCheckBean("车灯开关", data.getLightsSwitch());
+                    innerCar3 = new CarInfoCheckBean("转向灯开关", data.getTurnLightSwitch());
+                    innerCar4 = new CarInfoCheckBean("雨刮器开关", data.getWindscreenWiperSwitch());
                     innerCar5 = new CarInfoCheckBean("手刹", data.getHandBrake());
                     innerCar6 = new CarInfoCheckBean("脚刹", data.getFootBrake());
                     innerCar7 = new CarInfoCheckBean("油门", data.getAccelerator());
@@ -289,7 +297,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 CarInfoCheckBean tool5;
                 CarInfoCheckBean tool6;
                 CarInfoCheckBean tool7;
-                if (data != null) {
+                if (data != null && data.getJack() != null) {
                     tool1 = new CarInfoCheckBean("千斤顶", data.getJack());
                     tool2 = new CarInfoCheckBean("工具包", data.getKit());
                     tool3 = new CarInfoCheckBean("故障警示牌", data.getFaultWarningBoard());
@@ -327,12 +335,14 @@ public class CarInfoCheckActivity extends BaseActivity {
         map.put("taskId", mTaskId);
         switch (mType) {
             case "1":
+                map.put("type", "1");
                 map.put("insuranceCertificate", data.get(0).getStatus());
                 map.put("insuranceCard", data.get(1).getStatus());
                 map.put("warrantyCard", data.get(2).getStatus());
                 map.put("carTravelLicense", data.get(3).getStatus());
                 break;
             case "2":
+                map.put("type", "2");
                 map.put("beforePlate", data.get(0).getStatus());
                 map.put("endPlate", data.get(1).getStatus());
                 map.put("frontWheel", data.get(2).getStatus());
@@ -348,6 +358,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 map.put("chargeJack", data.get(12).getStatus());
                 break;
             case "3":
+                map.put("type", "3");
                 map.put("windowLifterSwitch", data.get(0).getStatus());
                 map.put("lightsSwitch", data.get(1).getStatus());
                 map.put("turnLightSwitch", data.get(2).getStatus());
@@ -369,6 +380,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                 map.put("seat", data.get(18).getStatus());
                 break;
             case "4":
+                map.put("type", "4");
                 map.put("jack", data.get(0).getStatus());
                 map.put("kit", data.get(1).getStatus());
                 map.put("faultWarningBoard", data.get(2).getStatus());
@@ -398,6 +410,7 @@ public class CarInfoCheckActivity extends BaseActivity {
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
                             showMsg("提交成功");
+                            finish();
                         } else {
                             showMsg(baseResponse.getMessage());
                         }

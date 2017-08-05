@@ -30,12 +30,14 @@ public class MissionReturnCarAdapter extends BaseQuickAdapter<ReturnCarListRetur
         helper.setText(R.id.missionReturnCarAdapter_tv_canRange, item.getCanRange() + "km");
         helper.setText(R.id.missionReturnCarAdapter_tv_distance, item.getDistance() + "km");
 
-        Button btnReceive = helper.getView(R.id.missionReturnCarAdapter_btn_getTask);
-        btnReceive.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, MissionReturnCarInfoActivity.class);
-            intent.putExtra("taskId",item.getTaskId()+"");
-            mContext.startActivity(intent);
-        });
+//        Button btnReceive = helper.getView(R.id.missionReturnCarAdapter_btn_getTask);
+//        btnReceive.setOnClickListener(v -> {
+//            Intent intent = new Intent(mContext, MissionReturnCarInfoActivity.class);
+//            intent.putExtra("taskId",item.getTaskId()+"");
+//            mContext.startActivity(intent);
+//        });
+        helper.addOnClickListener(R.id.missionReturnCarAdapter_btn_getTask);
+
 
     }
 }

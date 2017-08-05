@@ -6,15 +6,16 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseFragment;
 import com.workapp.auto.carterminal.utils.TabLayoutUtils;
+import com.workapp.auto.carterminal.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +30,11 @@ import butterknife.ButterKnife;
 
 public class MissionFragment extends BaseFragment {
     @Bind(R.id.missionFrg_tabLayout)
-    TabLayout tabLayout;
+    TabLayout tabLayout;                //有任务不显示
     @Bind(R.id.missionFrg_viewPager)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
+    @Bind(R.id.missionFrg_iv_title)
+    ImageView ivTitle;                  //有任务不显示
 
     private String[] mTitles = {"还车", "调度"};
     private List<Fragment> mFragments = new ArrayList<>();
@@ -55,9 +58,13 @@ public class MissionFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        setFragments();
+    }
+
+    private void setFragments() {
         mFragments.add(MissionReturnCarFragment.newInstance());
         mFragments.add(MissionDispatchFragment.newInstance());
-        viewPager.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
+        viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position);
@@ -93,4 +100,15 @@ public class MissionFragment extends BaseFragment {
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metric);
         return metric;
     }
+
+    public void showTabView(){
+        tabLayout.setVisibility(View.VISIBLE);
+        ivTitle.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTabView(){
+        tabLayout.setVisibility(View.GONE);
+        ivTitle.setVisibility(View.GONE);
+    }
+
 }

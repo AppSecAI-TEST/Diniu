@@ -10,4 +10,6 @@
     <string name="network_on_error">网络异常，请检查您的网络</string>
     <string name="video">视频上传</string>
     <string name="photo">照片上传</string>
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+
 </resources>

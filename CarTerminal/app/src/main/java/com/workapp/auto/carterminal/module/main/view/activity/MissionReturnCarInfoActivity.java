@@ -246,6 +246,12 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getNetData();
+    }
+
     private void getNetData() {
         RetrofitUtil.getInstance().api().returnCarReceiveDetail(mTaskId)
                 .subscribeOn(Schedulers.io())
@@ -430,6 +436,10 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
                             showMsg("提交成功");
+                            Intent intent = new Intent(MissionReturnCarInfoActivity.this,ReturnCarCompleteActivity.class);
+                            intent.putExtra("taskId",mTaskId);
+                            startActivity(intent);
+                            finish();
                         } else {
                             showMsg(baseResponse.getMessage());
                         }

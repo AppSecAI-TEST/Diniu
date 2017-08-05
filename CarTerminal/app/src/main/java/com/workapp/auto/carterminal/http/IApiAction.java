@@ -3,13 +3,17 @@ package com.workapp.auto.carterminal.http;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import java.util.Map;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -38,6 +42,9 @@ public interface IApiAction {
                                                           @Query("range") String range, @Query("page") String page,
                                                           @Query("size") String size, @Query("handleState") String handleState);
 
+    @GET("returncar/findReturnCarList")
+    Observable<ReturnCarListReturnBean> findReturnCarList(@Query("range") String range, @Query("page") String page, @Query("size") String size, @Query("handleState") String handleState);
+
     @GET("returncar/CheckCarLogs")
     Observable<CarInfoCheckReturnBean> checkCarLogs(@Query("taskId") String taskId, @Query("type") String type);
 
@@ -47,8 +54,12 @@ public interface IApiAction {
     @GET("returncar/returnCarReceiveDetail")
     Observable<ReturnCarDetailReturnBean> returnCarReceiveDetail(@Query("taskId") String taskId);
 
+//    @POST("returncar/updateCarStatus")
+//    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+
     @POST("returncar/updateCarStatus")
-    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
+    @FormUrlEncoded
+    Observable<BaseResponse> updateCarStatus(@Field("taskId") String taskId, @Field("state") String state, @Field("remarks") String remarks);
 
     @GET("dispatch/dispatchList")
     Observable<DispatchListReturnBean> dispatchList(@Query("lat") String lat, @Query("lng") String lng,
@@ -57,5 +68,16 @@ public interface IApiAction {
 
     @GET("dispatch/dispatchReceive")
     Observable<DispatchCompleteReturnBean> dispatchReceive(@Query("taskId") String taskId);
+
+    @GET("task/getCurrentTask")
+    Observable<CurrentTaskReturnBean> getCurrentTask(@Query("lat") String lat, @Query("lng") String lng);
+
+    //领取任务
+    @POST("task/getTask")
+    Observable<BaseResponse> getTask(@Query("taskId") String taskId, @Query("taskType") String taskType);
+
+    //领取任务
+    @GET("returncar/findReturnCarDetail")
+    Observable<FindReturnCarDetailReturnBean> findReturnCarDetail(@Query("taskId") String taskId);
 
 }

@@ -117,6 +117,42 @@ public class ReturnCarListReturnBean extends BaseResponse{
             private int distance;
             private int power;
             private String frameNo;
+            private int state;
+            private String createTime;
+            private String testingTime;
+            private String returnSiteName;
+
+            public String getCreateTime() {
+                return createTime;
+            }
+
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
+            }
+
+            public String getTestingTime() {
+                return testingTime;
+            }
+
+            public void setTestingTime(String testingTime) {
+                this.testingTime = testingTime;
+            }
+
+            public String getReturnSiteName() {
+                return returnSiteName;
+            }
+
+            public void setReturnSiteName(String returnSiteName) {
+                this.returnSiteName = returnSiteName;
+            }
+
+            public int getState() {
+                return state;
+            }
+
+            public void setState(int state) {
+                this.state = state;
+            }
 
             public int getTaskId() {
                 return taskId;

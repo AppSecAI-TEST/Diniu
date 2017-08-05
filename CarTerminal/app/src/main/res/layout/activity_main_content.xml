@@ -19,6 +19,8 @@
             android:background="@color/t25">
             <!--左边人像-->
             <RelativeLayout
+                android:id="@+id/mainAct_rl_leftClick"
+                android:paddingRight="@dimen/x10"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
@@ -89,7 +91,7 @@
 
         </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
+        <com.workapp.auto.carterminal.widget.NoScrollViewPager
             android:id="@+id/mainAct_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

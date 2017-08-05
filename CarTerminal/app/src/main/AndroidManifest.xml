@@ -39,6 +39,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="13c5f64c114c7cc11b0b52b7bc74286c"/>
         <activity
             android:name="com.workapp.auto.carterminal.module.main.view.activity.MainActivity"
             android:label="@string/app_name"/>
@@ -55,9 +58,11 @@
         <activity android:name=".base.PermissionsActivity"/>
         <activity android:name=".module.main.view.activity.MissionReturnCarInfoActivity"/>
         <activity android:name=".module.main.view.activity.CarInfoCheckActivity"/>
-        <activity android:name=".module.main.view.activity.MissionDispatchCompleteActivity"/>
         <activity android:name=".module.main.view.activity.CarPictureActivity"/>
         <activity android:name=".module.main.view.activity.RecordActivity"/>
+        <activity android:name=".module.main.view.activity.DispatchCompleteActivity"/>
+        <activity android:name=".module.main.view.activity.ReturnCarCompleteActivity"/>
+        <service android:name="com.amap.api.location.APSService"/>
 
     </application>
 
