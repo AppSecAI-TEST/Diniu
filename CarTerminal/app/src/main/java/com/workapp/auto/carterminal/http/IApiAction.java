@@ -62,6 +62,7 @@ public interface IApiAction {
     @GET("task/getCurrentTask")
     Observable<CurrentTaskReturnBean> getCurrentTask(@Query("lat") String lat, @Query("lng") String lng);
 
+    //领取任务
     @POST("task/getTask")
     Observable<BaseResponse> getTask(@Query("taskId") String taskId, @Query("taskType") String taskType);
 
