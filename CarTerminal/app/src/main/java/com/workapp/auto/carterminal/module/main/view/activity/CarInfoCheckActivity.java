@@ -3,6 +3,7 @@ package com.workapp.auto.carterminal.module.main.view.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.workapp.auto.carterminal.R;
@@ -52,6 +53,11 @@ public class CarInfoCheckActivity extends BaseActivity {
         mType = getIntent().getStringExtra("type");
         mTaskId = getIntent().getStringExtra("taskId");
         isCanSelect = getIntent().getBooleanExtra("isCanSelect",true);
+        if(isCanSelect){
+            btnSave.setVisibility(View.VISIBLE);
+        }else {
+            btnSave.setVisibility(View.GONE);
+        }
         switch (mType) {
             case "1":
                 setTitle("证书");
