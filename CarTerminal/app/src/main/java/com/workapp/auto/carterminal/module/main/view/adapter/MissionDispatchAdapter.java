@@ -39,7 +39,7 @@ public class MissionDispatchAdapter extends BaseQuickAdapter<DispatchListReturnB
 //            intent.putExtra("taskId", item.getTaskId() + "");
 //            mContext.startActivity(intent);
 //        });
-        helper.addOnClickListener(R.id.missionReturnCarAdapter_btn_getTask);
+        helper.addOnClickListener(R.id.missionDispatchAdapter_btn_getTask);
 
     }
 }

@@ -73,6 +73,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
+                    android:id="@+id/mapPage_tv_sendTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="完成还车"

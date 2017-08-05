@@ -1,5 +1,6 @@
 package com.workapp.auto.carterminal.module.main.view.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,7 @@ import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.DispatchCompleteActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionDispatchAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
+import com.workapp.auto.carterminal.widget.CustomIconDialog;
 import com.workapp.auto.carterminal.widget.aMap.DrivingRouteOverLay;
 
 import java.util.List;
@@ -76,6 +78,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
     TextView tvClose;
     @Bind(R.id.mapPage_btn_next)
     Button btnNext;
+    @Bind(R.id.mapPage_tv_sendTo)
+    TextView tvSendTo;
 
     private MissionDispatchAdapter mMissionDispatchAdapter;
     private int mPage = 1;
@@ -108,6 +112,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         initLocationListener();
         tvEndName.setVisibility(View.VISIBLE);
         btnNext.setText("完成任务");
+        tvSendTo.setText("还车至");
         mapView.onCreate(savedInstanceState);
         if (aMap == null) {
             aMap = mapView.getMap();
@@ -123,7 +128,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
 
     @Override
     protected void initData() {
-        getNetData();
+        getDispatchList();
     }
 
     @Override
@@ -133,7 +138,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
             public void onRefresh(RefreshLayout refreshlayout) {
                 mPage = 1;
                 getCurrentTask();
-                getNetData();
+                getDispatchList();
             }
         });
 
@@ -141,7 +146,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
             @Override
             public void onLoadMoreRequested() {
                 mPage++;
-                getNetData();
+                getDispatchList();
             }
         }, recyclerView);
 
@@ -154,9 +159,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         });
 
         btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
-            intent.putExtra("taskId", mTaskId);
-            getActivity().startActivity(intent);
+            showConfirmDialog();
         });
     }
 
@@ -164,6 +167,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getCurrentTask();
         if (mapView != null) {
             mapView.onResume();
         }
@@ -253,6 +257,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
                         if (currentTaskReturnBean.isSuccess() && currentTaskReturnBean.getData() != null) {
                             if (currentTaskReturnBean.getData().getTaskType().equals("1")) {
                                 parentFragment.hideTabView();
+                                parentFragment.setCurrentViewPagerItem(1);
                                 showMap(currentTaskReturnBean, mLatitude, mLongitude);
                             } else {
                                 hideMap();
@@ -267,7 +272,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
                 });
     }
 
-    private void getNetData() {
+    private void getDispatchList() {
         //公司经纬度30.2765433873,119.9962377548
         RetrofitUtil.getInstance().api().dispatchList(String.valueOf(mLatitude), String.valueOf(mLongitude), String.valueOf(mPage), String.valueOf(mSize), "0")
                 .subscribeOn(Schedulers.io())
@@ -438,5 +443,54 @@ public class MissionDispatchFragment extends BaseMapFragment {
 
             }
         });
+    }
+
+    private void showConfirmDialog(){
+        CustomIconDialog.Builder builder = new CustomIconDialog.Builder(getActivity());
+        builder.setMessage("确定完成任务吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                dispatchFinish();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        CustomIconDialog customIconDialog = builder.create();
+        customIconDialog.setCancelable(false);
+        customIconDialog.show();
+    }
+
+    private void dispatchFinish(){
+        RetrofitUtil.getInstance().api().dispatchFinish(mTaskId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<BaseResponse>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                        }
+
+                        @Override
+                        public void onNext(BaseResponse baseResponse) {
+                            if(baseResponse.isSuccess()){
+                                Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
+                                intent.putExtra("taskId", mTaskId);
+                                getActivity().startActivity(intent);
+                            }else{
+                                ToastUtils.showShort(MyApplication.getInstance(),baseResponse.getMessage());
+                            }
+                        }
+                    });
     }
 }

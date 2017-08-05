@@ -76,8 +76,10 @@ public interface IApiAction {
     @POST("task/getTask")
     Observable<BaseResponse> getTask(@Query("taskId") String taskId, @Query("taskType") String taskType);
 
-    //领取任务
     @GET("returncar/findReturnCarDetail")
     Observable<FindReturnCarDetailReturnBean> findReturnCarDetail(@Query("taskId") String taskId);
+
+    @POST("dispatch/dispatchFinish")
+    Observable<BaseResponse> dispatchFinish(@Query("taskId") String taskId);
 
 }

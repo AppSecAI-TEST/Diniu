@@ -162,6 +162,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getCurrentTask();
         if (mapView != null) {
             mapView.onResume();
         }
@@ -252,6 +253,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                         if (currentTaskReturnBean.isSuccess() && currentTaskReturnBean.getData() != null) {
                             if (currentTaskReturnBean.getData().getTaskType().equals("0")) {
                                 parentFragment.hideTabView();
+                                parentFragment.setCurrentViewPagerItem(0);
                                 showMap(currentTaskReturnBean, mLatitude, mLongitude);
                             } else {
                                 hideMap();
