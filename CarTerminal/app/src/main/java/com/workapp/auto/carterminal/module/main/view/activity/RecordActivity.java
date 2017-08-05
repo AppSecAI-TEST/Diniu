@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -54,26 +53,26 @@ public class RecordActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-   jCameraView.setJCameraLisenter(new JCameraLisenter() {
-       @Override
-       public void captureSuccess(Bitmap bitmap) {
+        jCameraView.setJCameraLisenter(new JCameraLisenter() {
+            @Override
+            public void captureSuccess(Bitmap bitmap) {
 //           获取图片
-       }
+            }
 
-       @Override
-       public void recordSuccess(String url) {
+            @Override
+            public void recordSuccess(String url) {
 //          获取视频
-           Log.i("CJT", "url = " + url);
-           video_url=url;
-           final File video_file=new File(video_url);
-       }
+                Log.i("CJT", "url = " + url);
+                video_url = url;
+                final File video_file = new File(video_url);
+            }
 
-       @Override
-       public void quit() {
-           //退出按钮
-           RecordActivity.this.finish();
-       }
-   });
+            @Override
+            public void quit() {
+                //退出按钮
+                RecordActivity.this.finish();
+            }
+        });
         //6.0动态权限获取
         getPermissions();
     }
@@ -115,6 +114,7 @@ public class RecordActivity extends BaseActivity {
             decorView.setSystemUiVisibility(option);
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -128,6 +128,7 @@ public class RecordActivity extends BaseActivity {
         super.onPause();
         jCameraView.onPause();
     }
+
     @TargetApi(23)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -156,10 +157,11 @@ public class RecordActivity extends BaseActivity {
                 if (size == 0) {
                     granted = true;
                     jCameraView.onResume();
-                }else{
+                } else {
                     Toast.makeText(this, "请到设置-权限管理中开启", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
         }
+    }
 }
