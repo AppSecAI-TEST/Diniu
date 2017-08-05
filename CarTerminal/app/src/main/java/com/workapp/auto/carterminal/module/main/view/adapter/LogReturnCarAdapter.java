@@ -52,7 +52,7 @@ public class LogReturnCarAdapter extends BaseQuickAdapter<ReturnCarListReturnBea
         LinearLayout llClick = helper.getView(R.id.logReturnCarAdapter_ll_status);
         llClick.setOnClickListener(v -> {
 //            Intent intent = new Intent(mContext, )
-//            intent.putExtra("tackId", item.getTaskId());
+//            intent.putExtra("taskId", item.getTaskId()+"");
 //            mContext.startActivity(intent);
         });
 

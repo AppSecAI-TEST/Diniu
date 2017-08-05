@@ -1,6 +1,5 @@
 package com.workapp.auto.carterminal.module.main.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,6 @@ import com.workapp.auto.carterminal.base.BaseMapFragment;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
-import com.workapp.auto.carterminal.module.main.view.activity.DispatchCompleteActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.LogDispatchAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 
@@ -42,7 +40,7 @@ public class LogDispatchFragment extends BaseMapFragment {
     @Bind(R.id.common_refreshLayout)
     SmartRefreshLayout refreshLayout;
 
-    private LogDispatchAdapter mMissionDispatchAdapter;
+    private LogDispatchAdapter mLogDispatchAdapter;
     private int mPage = 1;
     private int mSize = 10;
 
@@ -81,7 +79,7 @@ public class LogDispatchFragment extends BaseMapFragment {
             }
         });
 
-        mMissionDispatchAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mLogDispatchAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 mPage++;
@@ -89,14 +87,6 @@ public class LogDispatchFragment extends BaseMapFragment {
             }
         }, recyclerView);
 
-        mMissionDispatchAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                List<DispatchListReturnBean.DataBean.ContentBean> data = adapter.getData();
-                Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
-                intent.putExtra("taskId", data.get(position).getTaskId() + "");
-            }
-        });
 
     }
 
@@ -130,16 +120,16 @@ public class LogDispatchFragment extends BaseMapFragment {
                             if (list != null && list.size() > 0) {
                                 if (mPage == 1) {
                                     refreshLayout.finishRefresh();
-                                    mMissionDispatchAdapter.setNewData(list);
+                                    mLogDispatchAdapter.setNewData(list);
                                 } else {
-                                    mMissionDispatchAdapter.addData(list);
-                                    mMissionDispatchAdapter.loadMoreComplete();
+                                    mLogDispatchAdapter.addData(list);
+                                    mLogDispatchAdapter.loadMoreComplete();
                                 }
                             } else {
                                 if (mPage == 1) {
                                     refreshLayout.finishRefresh();
                                 } else {
-                                    mMissionDispatchAdapter.loadMoreEnd();
+                                    mLogDispatchAdapter.loadMoreEnd();
                                 }
                             }
                         } else {
@@ -147,7 +137,7 @@ public class LogDispatchFragment extends BaseMapFragment {
                             if (mPage == 1) {
                                 refreshLayout.finishRefresh();
                             } else {
-                                mMissionDispatchAdapter.loadMoreFail();
+                                mLogDispatchAdapter.loadMoreFail();
                             }
                         }
                     }
@@ -156,8 +146,8 @@ public class LogDispatchFragment extends BaseMapFragment {
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mMissionDispatchAdapter = new LogDispatchAdapter(getActivity());
-        recyclerView.setAdapter(mMissionDispatchAdapter);
+        mLogDispatchAdapter = new LogDispatchAdapter(getActivity());
+        recyclerView.setAdapter(mLogDispatchAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
     }
 

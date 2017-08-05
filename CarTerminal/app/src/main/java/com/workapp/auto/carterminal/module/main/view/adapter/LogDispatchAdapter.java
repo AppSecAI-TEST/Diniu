@@ -33,7 +33,7 @@ public class LogDispatchAdapter extends BaseQuickAdapter<DispatchListReturnBean.
         LinearLayout llClick = helper.getView(R.id.logReturnCarAdapter_ll_status);
         llClick.setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DispatchCompleteActivity.class);
-            intent.putExtra("tackId", item.getTaskId());
+            intent.putExtra("taskId", item.getTaskId()+"");
             mContext.startActivity(intent);
         });
 
