@@ -48,6 +48,15 @@ public class CurrentTaskReturnBean extends BaseResponse{
         private double canRange;
         private double lng;
         private double lat;
+        private String frameNo;
+
+        public String getFrameNo() {
+            return frameNo;
+        }
+
+        public void setFrameNo(String frameNo) {
+            this.frameNo = frameNo;
+        }
 
         public int getTaskId() {
             return taskId;

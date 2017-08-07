@@ -39,6 +39,7 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.DispatchCompleteActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionDispatchAdapter;
 import com.workapp.auto.carterminal.utils.ToastUtils;
@@ -92,7 +93,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
     private AMapLocationClient mLocationClient;
     private double mLatitude;                                //当前纬度
     private double mLongitude;                               //当前经度
-    private boolean firstGetLngLat = true;
+    private boolean firstGetLngLat = true;                   //是否是第一次定位
+    private String mFrameNo;                                 //车架号,用来开门关门
 
     public static MissionDispatchFragment newInstance() {
         Bundle args = new Bundle();
@@ -160,6 +162,14 @@ public class MissionDispatchFragment extends BaseMapFragment {
 
         btnNext.setOnClickListener(v -> {
             showConfirmDialog();
+        });
+
+        tvOpen.setOnClickListener(v -> {
+            openCarDoor();
+        });
+
+        tvClose.setOnClickListener(v -> {
+            closeDoor();
         });
     }
 
@@ -335,6 +345,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         mEndLat = data.getLat();
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
+        mFrameNo = data.getFrameNo();
         drawMapLine(currentLat, currentLng);
     }
 
@@ -445,7 +456,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         });
     }
 
-    private void showConfirmDialog(){
+    private void showConfirmDialog() {
         CustomIconDialog.Builder builder = new CustomIconDialog.Builder(getActivity());
         builder.setMessage("确定完成任务吗？");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -466,31 +477,83 @@ public class MissionDispatchFragment extends BaseMapFragment {
         customIconDialog.show();
     }
 
-    private void dispatchFinish(){
+    private void dispatchFinish() {
         RetrofitUtil.getInstance().api().dispatchFinish(mTaskId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<BaseResponse>() {
-                        @Override
-                        public void onCompleted() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseResponse>() {
+                    @Override
+                    public void onCompleted() {
 
-                        }
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
 
-                        @Override
-                        public void onNext(BaseResponse baseResponse) {
-                            if(baseResponse.isSuccess()){
-                                Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
-                                intent.putExtra("taskId", mTaskId);
-                                getActivity().startActivity(intent);
-                            }else{
-                                ToastUtils.showShort(MyApplication.getInstance(),baseResponse.getMessage());
-                            }
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        if (baseResponse.isSuccess()) {
+                            Intent intent = new Intent(getActivity(), DispatchCompleteActivity.class);
+                            intent.putExtra("taskId", mTaskId);
+                            getActivity().startActivity(intent);
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), baseResponse.getMessage());
                         }
-                    });
+                    }
+                });
+    }
+
+    private void openCarDoor() {
+        RetrofitUtil.getInstance().api().openCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "开门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
+    }
+
+    private void closeDoor() {
+        RetrofitUtil.getInstance().api().closeCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "关门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
     }
 }

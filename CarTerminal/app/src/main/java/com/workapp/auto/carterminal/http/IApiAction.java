@@ -6,6 +6,7 @@ import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
@@ -81,5 +82,11 @@ public interface IApiAction {
 
     @POST("dispatch/dispatchFinish")
     Observable<BaseResponse> dispatchFinish(@Query("taskId") String taskId);
+
+    @POST("pickup")
+    Observable<DoorReturnBean> openCarDoor(@Query("frameNo") String frameNo);
+
+    @POST("returncar/closeCarDoor")
+    Observable<DoorReturnBean> closeCarDoor(@Query("frameNo") String frameNo);
 
 }

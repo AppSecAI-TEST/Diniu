@@ -37,6 +37,7 @@ import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.MissionReturnCarInfoActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionReturnCarAdapter;
@@ -89,7 +90,8 @@ public class MissionReturnCarFragment extends BaseMapFragment {
     private AMapLocationClient mLocationClient;
     private double mLatitude;                                //当前纬度
     private double mLongitude;                               //当前经度
-    private boolean firstGetLngLat = true;
+    private boolean firstGetLngLat = true;                   //是否是第一次定位
+    private String mFrameNo;                                 //车架号,用来开门关门
 
     public static MissionReturnCarFragment newInstance() {
         Bundle args = new Bundle();
@@ -156,6 +158,14 @@ public class MissionReturnCarFragment extends BaseMapFragment {
             Intent intent = new Intent(getActivity(), MissionReturnCarInfoActivity.class);
             intent.putExtra("taskId", mTaskId);
             getActivity().startActivity(intent);
+        });
+
+        tvOpen.setOnClickListener(v -> {
+            openCarDoor();
+        });
+
+        tvClose.setOnClickListener(v -> {
+            closeDoor();
         });
     }
 
@@ -329,6 +339,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         mEndLat = data.getLat();
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
+        mFrameNo = data.getFrameNo();
         drawMapLine(currentLat, currentLng);
     }
 
@@ -437,6 +448,58 @@ public class MissionReturnCarFragment extends BaseMapFragment {
 
             }
         });
+    }
+
+    private void openCarDoor() {
+        RetrofitUtil.getInstance().api().openCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "开门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
+    }
+
+    private void closeDoor() {
+        RetrofitUtil.getInstance().api().closeCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "关门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
     }
 
 }
