@@ -2,11 +2,11 @@ package com.workapp.auto.carterminal.http;
 
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.BooleanReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
-import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
@@ -57,15 +57,17 @@ public interface IApiAction {
 
     @GET("returncar/returnCarReceiveDetail")
     Observable<ReturnCarDetailReturnBean> returnCarReceiveDetail(@Query("taskId") String taskId);
+
     @Multipart
     @POST("returncar/imageUpload")
-     Observable<BaseResponse> postImages(@Query("taskId") String taskId,@Part("file1\"; filename=\"image.png\"") RequestBody img1,
+    Observable<BaseResponse> postImages(@Query("taskId") String taskId, @Part("file1\"; filename=\"image.png\"") RequestBody img1,
                                         @Part("file2\"; filename=\"image.png\"") RequestBody img2,
                                         @Part("file3\"; filename=\"image.png\"") RequestBody img3,
                                         @Part("file4\"; filename=\"image.png\"") RequestBody img4);
+
     @Multipart
     @POST("returncar/videoUpload")
-    Observable<BaseResponse> uploadVideo(@Query("taskId") String taskId,@Part("file\"; filename=\"a.mp4\" ") RequestBody body);
+    Observable<BaseResponse> uploadVideo(@Query("taskId") String taskId, @Part("file\"; filename=\"a.mp4\" ") RequestBody body);
 //    @POST("returncar/updateCarStatus")
 //    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
 
@@ -95,9 +97,14 @@ public interface IApiAction {
     Observable<BaseResponse> dispatchFinish(@Query("taskId") String taskId);
 
     @POST("pickup")
-    Observable<DoorReturnBean> openCarDoor(@Query("frameNo") String frameNo);
+    Observable<BooleanReturnBean> openCarDoor(@Query("frameNo") String frameNo);
 
     @POST("returncar/closeCarDoor")
-    Observable<DoorReturnBean> closeCarDoor(@Query("frameNo") String frameNo);
+    Observable<BooleanReturnBean> closeCarDoor(@Query("frameNo") String frameNo);
+
+    @POST("task/checkScope")
+    Observable<BooleanReturnBean> checkScope(@Query("lng") String lng, @Query("lat") String lat,
+                                             @Query("scope") String scope, @Query("endLng") String endLng,
+                                             @Query("endLat") String endLat);
 
 }

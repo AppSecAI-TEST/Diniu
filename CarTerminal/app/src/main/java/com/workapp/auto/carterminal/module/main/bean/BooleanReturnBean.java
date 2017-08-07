@@ -2,11 +2,11 @@ package com.workapp.auto.carterminal.module.main.bean;
 
 import com.workapp.auto.carterminal.base.BaseResponse;
 
-/**开门关门返回实体类
+/**返回的data 只有布尔值得返回信息实体类
  * Created by Administrator on 2017/8/7 0007.
  */
 
-public class DoorReturnBean extends BaseResponse{
+public class BooleanReturnBean extends BaseResponse{
 
     /**
      * data : true

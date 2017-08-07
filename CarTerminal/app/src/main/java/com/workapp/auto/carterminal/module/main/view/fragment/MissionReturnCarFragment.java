@@ -41,9 +41,10 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseMapFragment;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.config.AppConstant;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
+import com.workapp.auto.carterminal.module.main.bean.BooleanReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
-import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.MissionReturnCarInfoActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionReturnCarAdapter;
@@ -310,7 +311,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
 
     private void getReturnCarList() {
         //公司经纬度30.2765433873,119.9962377548
-        RetrofitUtil.getInstance().api().findReturnCarList(String.valueOf(mLatitude), String.valueOf(mLongitude), String.valueOf(100000), String.valueOf(mPage), String.valueOf(mSize), "0")
+        RetrofitUtil.getInstance().api().findReturnCarList(String.valueOf(mLatitude), String.valueOf(mLongitude), AppConstant.RETURNCAR_LIST_RANGE, String.valueOf(mPage), String.valueOf(mSize), "0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ReturnCarListReturnBean>() {
@@ -485,7 +486,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().openCarDoor(mFrameNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DoorReturnBean>() {
+                .subscribe(new Subscriber<BooleanReturnBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -497,11 +498,15 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                     }
 
                     @Override
-                    public void onNext(DoorReturnBean doorReturnBean) {
-                        if (doorReturnBean.isSuccess()) {
-                            ToastUtils.showShort(MyApplication.getInstance(), "开门成功");
+                    public void onNext(BooleanReturnBean booleanReturnBean) {
+                        if (booleanReturnBean.isSuccess()) {
+                            if (booleanReturnBean.isData()) {
+                                ToastUtils.showShort(MyApplication.getInstance(), "开门成功");
+                            }else{
+                                ToastUtils.showShort(MyApplication.getInstance(), "开门失败");
+                            }
                         } else {
-                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                            ToastUtils.showShort(MyApplication.getInstance(), booleanReturnBean.getMessage());
                         }
                     }
                 });
@@ -511,7 +516,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().closeCarDoor(mFrameNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DoorReturnBean>() {
+                .subscribe(new Subscriber<BooleanReturnBean>() {
                     @Override
                     public void onCompleted() {
 
@@ -523,11 +528,15 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                     }
 
                     @Override
-                    public void onNext(DoorReturnBean doorReturnBean) {
-                        if (doorReturnBean.isSuccess()) {
-                            ToastUtils.showShort(MyApplication.getInstance(), "关门成功");
+                    public void onNext(BooleanReturnBean booleanReturnBean) {
+                        if (booleanReturnBean.isSuccess()) {
+                            if (booleanReturnBean.isData()) {
+                                ToastUtils.showShort(MyApplication.getInstance(), "关门成功");
+                            }else{
+                                ToastUtils.showShort(MyApplication.getInstance(), "关门失败");
+                            }
                         } else {
-                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                            ToastUtils.showShort(MyApplication.getInstance(), booleanReturnBean.getMessage());
                         }
                     }
                 });
