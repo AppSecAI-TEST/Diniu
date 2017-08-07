@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,12 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
@@ -81,6 +87,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
     Button btnNext;
     @Bind(R.id.mapPage_tv_sendTo)
     TextView tvSendTo;
+    @Bind(R.id.mapPage_btn_location)
+    ImageView ivLocation;
 
     private MissionDispatchAdapter mMissionDispatchAdapter;
     private int mPage = 1;
@@ -95,6 +103,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
     private double mLongitude;                               //当前经度
     private boolean firstGetLngLat = true;                   //是否是第一次定位
     private String mFrameNo;                                 //车架号,用来开门关门
+    private Marker mLocationMarker;                          //当前位置marker
+    private LatLng mCurrentLatLng;                           //当前位置经纬度
 
     public static MissionDispatchFragment newInstance() {
         Bundle args = new Bundle();
@@ -171,6 +181,11 @@ public class MissionDispatchFragment extends BaseMapFragment {
         tvClose.setOnClickListener(v -> {
             closeDoor();
         });
+
+        ivLocation.setOnClickListener(v -> {
+            //然后可以移动到定位点,使用animateCamera就有动画效果
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLatLng, 10));
+        });
     }
 
 
@@ -233,6 +248,19 @@ public class MissionDispatchFragment extends BaseMapFragment {
                             getCurrentTask();
                             firstGetLngLat = false;
                         }
+                        //当前点
+                        mCurrentLatLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+                        //添加Marker显示定位位置
+                        if (mLocationMarker == null) {
+                            //如果是空的添加一个新的,icon方法就是设置定位图标，可以自定义
+                            mLocationMarker = aMap.addMarker(new MarkerOptions()
+                                    .position(mCurrentLatLng)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_xandian)));
+                        } else {
+                            //已经添加过了，修改位置即可
+                            mLocationMarker.setPosition(mCurrentLatLng);
+                        }
+
                     } else {
                         //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                         Log.e("AmapError", "location Error, ErrCode:"

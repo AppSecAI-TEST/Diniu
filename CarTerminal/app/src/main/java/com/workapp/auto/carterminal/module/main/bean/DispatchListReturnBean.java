@@ -120,7 +120,7 @@ public class DispatchListReturnBean extends BaseResponse {
             private int distance;
             private String carModel;
             private int power;
-            private int canRange;
+            private double canRange;
             private String frameNo;
             private String startTime;
             private String endTime;
@@ -197,11 +197,11 @@ public class DispatchListReturnBean extends BaseResponse {
                 this.power = power;
             }
 
-            public int getCanRange() {
+            public double getCanRange() {
                 return canRange;
             }
 
-            public void setCanRange(int canRange) {
+            public void setCanRange(double canRange) {
                 this.canRange = canRange;
             }
 
