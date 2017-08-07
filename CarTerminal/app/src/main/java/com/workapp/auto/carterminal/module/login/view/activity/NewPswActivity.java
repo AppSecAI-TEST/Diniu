@@ -14,7 +14,7 @@ import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.utils.ToastUtils;
-import com.workapp.auto.carterminal.widget.CustomIconDialog;
+import com.workapp.auto.carterminal.widget.CustomIconSingleDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -129,7 +129,7 @@ public class NewPswActivity extends BaseActivity {
     }
 
     private void showDialog(){
-        CustomIconDialog.Builder builder = new CustomIconDialog.Builder(this);
+        CustomIconSingleDialog.Builder builder = new CustomIconSingleDialog.Builder(this);
         builder.setMessage("密码已重置，请重新登录！");
         builder.setPositiveButton("去登录", new DialogInterface.OnClickListener() {
             @Override
@@ -137,7 +137,7 @@ public class NewPswActivity extends BaseActivity {
                 startActivity(new Intent(NewPswActivity.this,LoginActivity.class));
             }
         });
-        CustomIconDialog customIconDialog = builder.create();
+        CustomIconSingleDialog customIconDialog = builder.create();
         customIconDialog.setCancelable(false);
         customIconDialog.show();
     }

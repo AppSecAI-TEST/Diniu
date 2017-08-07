@@ -19,18 +19,33 @@
 
     <!--地图-->
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/mapPage_rl_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:visibility="gone"
         >
         <!--地图-->
-        <com.amap.api.maps2d.MapView
-            android:id="@+id/mapPage_map"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/ll_info"/>
+            android:layout_above="@+id/ll_info">
+
+            <com.amap.api.maps2d.MapView
+                android:id="@+id/mapPage_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:id="@+id/mapPage_btn_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x10"
+                android:layout_marginTop="@dimen/y10"
+                android:src="@mipmap/dw"/>
+        </RelativeLayout>
         <!--信息-->
         <LinearLayout
             android:id="@+id/ll_info"
@@ -73,6 +88,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
+                    android:id="@+id/mapPage_tv_sendTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="完成还车"

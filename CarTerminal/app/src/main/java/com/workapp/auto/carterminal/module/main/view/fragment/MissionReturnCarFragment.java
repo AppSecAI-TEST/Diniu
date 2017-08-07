@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,12 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.route.BusRouteResult;
@@ -37,6 +43,7 @@ import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.DoorReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.activity.MissionReturnCarInfoActivity;
 import com.workapp.auto.carterminal.module.main.view.adapter.MissionReturnCarAdapter;
@@ -76,12 +83,16 @@ public class MissionReturnCarFragment extends BaseMapFragment {
     TextView tvClose;
     @Bind(R.id.mapPage_btn_next)
     Button btnNext;
+    @Bind(R.id.mapPage_btn_location)
+    ImageView ivLocation;
 
 
     private MissionReturnCarAdapter mMissionReturnCarAdapter;
     private int mPage = 1;
     private int mSize = 10;
     private AMap aMap;
+    private double mStartLat;        //起点纬度
+    private double mStartLng;        //起点经度
     private double mEndLat;          //终点纬度
     private double mEndLng;          //终点经度
     private String mTaskId;
@@ -89,7 +100,10 @@ public class MissionReturnCarFragment extends BaseMapFragment {
     private AMapLocationClient mLocationClient;
     private double mLatitude;                                //当前纬度
     private double mLongitude;                               //当前经度
-    private boolean firstGetLngLat = true;
+    private boolean firstGetLngLat = true;                   //是否是第一次定位
+    private String mFrameNo;                                 //车架号,用来开门关门
+    private Marker mLocationMarker;                          //当前位置marker
+    private LatLng mCurrentLatLng;                           //当前位置经纬度
 
     public static MissionReturnCarFragment newInstance() {
         Bundle args = new Bundle();
@@ -157,11 +171,25 @@ public class MissionReturnCarFragment extends BaseMapFragment {
             intent.putExtra("taskId", mTaskId);
             getActivity().startActivity(intent);
         });
+
+        tvOpen.setOnClickListener(v -> {
+            openCarDoor();
+        });
+
+        tvClose.setOnClickListener(v -> {
+            closeDoor();
+        });
+
+        ivLocation.setOnClickListener(v -> {
+            //然后可以移动到定位点,使用animateCamera就有动画效果
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLatLng, 10));
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        getCurrentTask();
         if (mapView != null) {
             mapView.onResume();
         }
@@ -214,9 +242,23 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);//定位时间*/
                         if (firstGetLngLat) {
+                            mStartLat = amapLocation.getLatitude();
+                            mStartLng = amapLocation.getLongitude();
                             getCurrentTask();
                             getReturnCarList();
                             firstGetLngLat = false;
+                        }
+                        //当前点
+                        mCurrentLatLng = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+                        //添加Marker显示定位位置
+                        if (mLocationMarker == null) {
+                            //如果是空的添加一个新的,icon方法就是设置定位图标，可以自定义
+                            mLocationMarker = aMap.addMarker(new MarkerOptions()
+                                    .position(mCurrentLatLng)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_xandian)));
+                        } else {
+                            //已经添加过了，修改位置即可
+                            mLocationMarker.setPosition(mCurrentLatLng);
                         }
                     } else {
                         //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -252,6 +294,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                         if (currentTaskReturnBean.isSuccess() && currentTaskReturnBean.getData() != null) {
                             if (currentTaskReturnBean.getData().getTaskType().equals("0")) {
                                 parentFragment.hideTabView();
+                                parentFragment.setCurrentViewPagerItem(0);
                                 showMap(currentTaskReturnBean, mLatitude, mLongitude);
                             } else {
                                 hideMap();
@@ -327,7 +370,8 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         mEndLat = data.getLat();
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
-        drawMapLine(currentLat, currentLng);
+        mFrameNo = data.getFrameNo();
+        drawMapLine();
     }
 
     public void hideMap() {
@@ -362,9 +406,9 @@ public class MissionReturnCarFragment extends BaseMapFragment {
                 });
     }
 
-    private void drawMapLine(double currentLat, double currentLng) {
+    private void drawMapLine() {
         RouteSearch routeSearch = new RouteSearch(getActivity());
-        LatLonPoint latLonPointStart = new LatLonPoint(currentLat, currentLng);
+        LatLonPoint latLonPointStart = new LatLonPoint(mStartLat, mStartLng);
         LatLonPoint latLonPointEnd = new LatLonPoint(mEndLat, mEndLng);
         RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(latLonPointStart, latLonPointEnd);
         RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_SINGLE_DEFAULT, null, null, "");
@@ -435,6 +479,58 @@ public class MissionReturnCarFragment extends BaseMapFragment {
 
             }
         });
+    }
+
+    private void openCarDoor() {
+        RetrofitUtil.getInstance().api().openCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "开门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
+    }
+
+    private void closeDoor() {
+        RetrofitUtil.getInstance().api().closeCarDoor(mFrameNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<DoorReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(DoorReturnBean doorReturnBean) {
+                        if (doorReturnBean.isSuccess()) {
+                            ToastUtils.showShort(MyApplication.getInstance(), "关门成功");
+                        } else {
+                            ToastUtils.showShort(MyApplication.getInstance(), doorReturnBean.getMessage());
+                        }
+                    }
+                });
     }
 
 }

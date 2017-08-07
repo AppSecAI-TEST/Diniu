@@ -111,4 +111,8 @@ public class MissionFragment extends BaseFragment {
         ivTitle.setVisibility(View.GONE);
     }
 
+    public void setCurrentViewPagerItem(int pos){
+        viewPager.setCurrentItem(pos);
+    }
+
 }

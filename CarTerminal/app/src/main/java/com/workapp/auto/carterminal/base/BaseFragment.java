@@ -4,9 +4,12 @@ package com.workapp.auto.carterminal.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.workapp.auto.carterminal.utils.ToastUtils;
 
 /** fragment基类
  * Created by Administrator on 2016/9/15.
@@ -52,5 +55,11 @@ public abstract class BaseFragment extends Fragment {
      * 添加事件监听
      */
     protected abstract void initListener();
+
+    public void showMsg(String msg) {
+        if (!TextUtils.isEmpty(msg)) {
+            ToastUtils.showShort(MyApplication.getInstance(), msg);
+        }
+    }
 
 }
