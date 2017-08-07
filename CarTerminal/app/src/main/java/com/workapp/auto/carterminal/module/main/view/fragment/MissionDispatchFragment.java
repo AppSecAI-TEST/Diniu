@@ -94,6 +94,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
     private int mPage = 1;
     private int mSize = 10;
     private AMap aMap;
+    private double mStartLat;        //起点纬度
+    private double mStartLng;        //起点经度
     private double mEndLat;          //终点纬度
     private double mEndLng;          //终点经度
     private String mTaskId;
@@ -245,6 +247,8 @@ public class MissionDispatchFragment extends BaseMapFragment {
                         Date date = new Date(amapLocation.getTime());
                         df.format(date);//定位时间*/
                         if (firstGetLngLat) {
+                            mStartLat = amapLocation.getLatitude();
+                            mStartLng = amapLocation.getLongitude();
                             getCurrentTask();
                             firstGetLngLat = false;
                         }
@@ -374,7 +378,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         mEndLng = data.getLng();
         mTaskId = String.valueOf(data.getTaskId());
         mFrameNo = data.getFrameNo();
-        drawMapLine(currentLat, currentLng);
+        drawMapLine();
     }
 
     public void hideMap() {
@@ -409,9 +413,9 @@ public class MissionDispatchFragment extends BaseMapFragment {
                 });
     }
 
-    private void drawMapLine(double currentLat, double currentLng) {
+    private void drawMapLine() {
         RouteSearch routeSearch = new RouteSearch(getActivity());
-        LatLonPoint latLonPointStart = new LatLonPoint(currentLat, currentLng);
+        LatLonPoint latLonPointStart = new LatLonPoint(mStartLat, mStartLng);
         LatLonPoint latLonPointEnd = new LatLonPoint(mEndLat, mEndLng);
         RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(latLonPointStart, latLonPointEnd);
         RouteSearch.DriveRouteQuery query = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DRIVING_SINGLE_DEFAULT, null, null, "");
