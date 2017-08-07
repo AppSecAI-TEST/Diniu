@@ -113,7 +113,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
 
     private String mTaskId;//任务id
     private int mState = -1; //验车说明 0、正常入库 1、待维修 2、报废
-    private int REQUEST_CODE=12;
+    private final int REQUEST_CODE=12;
 
     @Override
     protected int getLayout() {
@@ -184,6 +184,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
                 public void onClick(DialogInterface dialog, int which) {
                      dialog.dismiss();
                     Intent record=new Intent(MissionReturnCarInfoActivity.this,RecordActivity.class);
+                    record.putExtra("taskId",mTaskId);
                     startActivityForResult(record,REQUEST_CODE);
                 }
             });
@@ -192,6 +193,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
                public void onClick(DialogInterface dialog, int which) {
                  dialog.dismiss();
                    Intent pic=new Intent(MissionReturnCarInfoActivity.this,CarPictureActivity.class);
+                   pic.putExtra("taskId",mTaskId);
                    startActivityForResult(pic,REQUEST_CODE);
                }
            });
@@ -447,4 +449,15 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
                 });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            switch (requestCode) {
+                case REQUEST_CODE:
+
+                    break;
+            }
+        }
+    }
 }

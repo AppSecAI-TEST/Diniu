@@ -12,10 +12,13 @@ import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -53,7 +56,15 @@ public interface IApiAction {
 
     @GET("returncar/returnCarReceiveDetail")
     Observable<ReturnCarDetailReturnBean> returnCarReceiveDetail(@Query("taskId") String taskId);
-
+    @Multipart
+    @POST("returncar/imageUpload")
+     Observable<BaseResponse> postImages(@Query("taskId") String taskId,@Part("file1\"; filename=\"image.png\"") RequestBody img1,
+                                        @Part("file2\"; filename=\"image.png\"") RequestBody img2,
+                                        @Part("file3\"; filename=\"image.png\"") RequestBody img3,
+                                        @Part("file4\"; filename=\"image.png\"") RequestBody img4);
+    @Multipart
+    @POST("returncar/videoUpload")
+    Observable<BaseResponse> uploadVideo(@Query("taskId") String taskId,@Part("file\"; filename=\"a.mp4\" ") RequestBody body);
 //    @POST("returncar/updateCarStatus")
 //    Observable<BaseResponse> updateCarStatus(@Query("taskId") String taskId, @Query("state") String state,@Query("remarks") String remarks);
 

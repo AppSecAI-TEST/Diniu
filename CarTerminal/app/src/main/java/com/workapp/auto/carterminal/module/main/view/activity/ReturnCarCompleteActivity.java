@@ -1,6 +1,7 @@
 package com.workapp.auto.carterminal.module.main.view.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
+import com.workapp.auto.carterminal.widget.SelectDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -93,7 +95,11 @@ public class ReturnCarCompleteActivity extends BaseActivity {
     @Bind(R.id.returnCarInfoAct_tv_remarks)
     TextView tvRemarks;
     private String mTaskId;//任务id
-
+    private String pic_url1;
+    private String pic_url2;
+    private String pic_url3;
+    private String pic_url4;
+    private String video_url;
 
     @Override
     protected int getLayout() {
@@ -158,11 +164,26 @@ public class ReturnCarCompleteActivity extends BaseActivity {
             startActivity(intent);
         });
         llCarData.setOnClickListener(v -> {
-            /*Intent intent = new Intent(this,CarInfoCheckActivity.class);
-            intent.putExtra("type","5");
-            intent.putExtra("taskId",mTaskId);
-            intent.putExtra("isCanSelect",false);
-            startActivity(intent);*/
+            SelectDialog.Builder builder = new SelectDialog.Builder(this);
+            builder.setNegativeButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Intent record=new Intent(ReturnCarCompleteActivity.this,PlayActivity.class);
+                    record.putExtra("taskId",mTaskId);
+                    startActivityForResult(record,0);
+                }
+            });
+            builder.setPositiveButton(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    Intent pic=new Intent(ReturnCarCompleteActivity.this,CarPictureDetailActivity.class);
+                    pic.putExtra("taskId",mTaskId);
+                    startActivityForResult(pic,0);
+                }
+            });
+            builder.create().show();
         });
 
     }
@@ -204,7 +225,6 @@ public class ReturnCarCompleteActivity extends BaseActivity {
         tvPlateNo.setText(data.getPlateNo());
         tvPower.setText(data.getPower() + "%");
         tvCanRange.setText(data.getCanRange() + "公里");
-
         if (data.isCertificate()) {
             tvCertificateStatus.setText("正常");
             tvCertificateStatus.setTextColor(Color.parseColor("#2c2c2c"));

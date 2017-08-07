@@ -17,11 +17,19 @@ import com.cjt2325.cameralibrary.JCameraView;
 import com.cjt2325.cameralibrary.lisenter.JCameraLisenter;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
+import com.workapp.auto.carterminal.base.BaseResponse;
+import com.workapp.auto.carterminal.http.RetrofitUtil;
 
 import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subjects.BehaviorSubject;
 
 /**
  * 录制小视频
@@ -34,6 +42,7 @@ public class RecordActivity extends BaseActivity {
     private boolean granted = false;
     private final int GET_PERMISSION_REQUEST = 100; //权限申请自定义码
     private String video_url;
+    private String taskId;
 
     @Override
     protected int getLayout() {
@@ -44,6 +53,7 @@ public class RecordActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         hideTitle();
+        taskId=getIntent().getStringExtra("taskId");
     }
 
     @Override
@@ -54,26 +64,55 @@ public class RecordActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-   jCameraView.setJCameraLisenter(new JCameraLisenter() {
-       @Override
-       public void captureSuccess(Bitmap bitmap) {
+        jCameraView.setJCameraLisenter(new JCameraLisenter() {
+            @Override
+            public void captureSuccess(Bitmap bitmap) {
 //           获取图片
-       }
+            }
 
-       @Override
-       public void recordSuccess(String url) {
+            @Override
+            public void recordSuccess(String url) {
 //          获取视频
-           Log.i("CJT", "url = " + url);
-           video_url=url;
-           final File video_file=new File(video_url);
-       }
+                Log.i("CJT", "url = " + url);
+                video_url = url;
+                final File video_file = new File(video_url);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("video/mp4"), video_file);
+                showLoadingView();
+                RetrofitUtil.getInstance().api().uploadVideo(taskId, requestBody)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<BaseResponse>() {
+                            @Override
+                            public void onCompleted() {
 
-       @Override
-       public void quit() {
-           //退出按钮
-           RecordActivity.this.finish();
-       }
-   });
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.i("Record", "onError: " + e.getMessage());
+                                hideLoadingView();
+                                showMsg(e.getMessage());
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                hideLoadingView();
+                                if (baseResponse.getCode() == 0) {
+                                    showMsg("上传成功");
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                            }
+                        });
+
+            }
+
+            @Override
+            public void quit() {
+                //退出按钮
+                RecordActivity.this.finish();
+            }
+        });
         //6.0动态权限获取
         getPermissions();
     }
@@ -115,6 +154,7 @@ public class RecordActivity extends BaseActivity {
             decorView.setSystemUiVisibility(option);
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -128,6 +168,7 @@ public class RecordActivity extends BaseActivity {
         super.onPause();
         jCameraView.onPause();
     }
+
     @TargetApi(23)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -156,10 +197,11 @@ public class RecordActivity extends BaseActivity {
                 if (size == 0) {
                     granted = true;
                     jCameraView.onResume();
-                }else{
+                } else {
                     Toast.makeText(this, "请到设置-权限管理中开启", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
         }
+    }
 }

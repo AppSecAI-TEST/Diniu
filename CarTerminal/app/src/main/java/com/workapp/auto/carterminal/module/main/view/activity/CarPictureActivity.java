@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,11 +13,20 @@ import android.widget.TextView;
 
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
+import com.workapp.auto.carterminal.base.BaseResponse;
+import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.utils.BitmapUtil;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by wanggibin on 2017/8/4.
@@ -48,6 +59,7 @@ public class CarPictureActivity extends BaseActivity {
     private String srcPath2;
     private String srcPath3;
     private String srcPath4;
+    private String taskId;
     @Override
     protected int getLayout() {
         return R.layout.activity_carpicture;
@@ -57,6 +69,69 @@ public class CarPictureActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         setTitle("照片上传");
+        taskId=getIntent().getStringExtra("taskId");
+        showRightTitle("完成", new RightClick() {
+            @Override
+            public void click(View view) {
+                uploadPic();
+            }
+        });
+    }
+
+    private void uploadPic() {
+        if(TextUtils.isEmpty(srcPath1)){
+            showMsg("车身前侧照片未添加");
+            return;
+        }
+        if(TextUtils.isEmpty(srcPath2)){
+            showMsg("车身左侧照片未添加");
+            return;
+        }
+        if(TextUtils.isEmpty(srcPath3)){
+            showMsg("车身后侧照片未添加");
+            return;
+        }
+        if(TextUtils.isEmpty(srcPath4)){
+            showMsg("车身右侧照片未添加");
+            return;
+        }
+        showLoadingView();
+        File file1=new File(srcPath1);
+        RequestBody requestBody1 = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
+        File file2=new File(srcPath2);
+        RequestBody requestBody2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
+        File file3=new File(srcPath3);
+        RequestBody requestBody3 = RequestBody.create(MediaType.parse("multipart/form-data"), file3);
+        File file4=new File(srcPath4);
+        RequestBody requestBody4 = RequestBody.create(MediaType.parse("multipart/form-data"), file4);
+        RetrofitUtil.getInstance().api().postImages(taskId,requestBody1,requestBody2,requestBody3,requestBody4)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                  hideLoadingView();
+                        showMsg(e.getMessage());
+                        Log.e("CarPictureActivity", "onError: "+e.getMessage() );
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+             hideLoadingView();
+                        if(baseResponse.getCode()==0){
+                            showMsg("图片上传成功");
+                            setResult(RESULT_OK);
+                            finish();
+                        }else {
+                            showMsg(baseResponse.getMessage());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -101,6 +176,7 @@ public class CarPictureActivity extends BaseActivity {
                     if (data != null){
                         if (data.hasExtra("data")){ //intent-> key(data):value(bitmap)
                             Bitmap bitmap = data.getParcelableExtra("data");
+                            btnPic1.setText("重新上传");
                             ivPic1.setImageBitmap(bitmap);
                             BitmapUtil.saveBitmap(bitmap,this);
                             srcPath1 =BitmapUtil.getSrcPath();
@@ -111,6 +187,7 @@ public class CarPictureActivity extends BaseActivity {
                     if (data != null){
                         if (data.hasExtra("data")){ //intent-> key(data):value(bitmap)
                             Bitmap bitmap = data.getParcelableExtra("data");
+                            btnPic2.setText("重新上传");
                             ivPic2.setImageBitmap(bitmap);
                             BitmapUtil.saveBitmap(bitmap,this);
                             srcPath2 = BitmapUtil.getSrcPath();
@@ -121,6 +198,7 @@ public class CarPictureActivity extends BaseActivity {
                     if(data!=null){
                         if(data.hasExtra("data")){
                             Bitmap bitmap=data.getParcelableExtra("data");
+                            btnPic3.setText("重新上传");
                             ivPic3.setImageBitmap(bitmap);
                             BitmapUtil.saveBitmap(bitmap,this);
                             srcPath3 = BitmapUtil.getSrcPath();
@@ -131,6 +209,7 @@ public class CarPictureActivity extends BaseActivity {
                     if(data!=null){
                         if(data.hasExtra("data")){
                             Bitmap bitmap=data.getParcelableExtra("data");
+                            btnPic4.setText("重新上传");
                             ivPic4.setImageBitmap(bitmap);
                             BitmapUtil.saveBitmap(bitmap,this);
                             srcPath4 = BitmapUtil.getSrcPath();
