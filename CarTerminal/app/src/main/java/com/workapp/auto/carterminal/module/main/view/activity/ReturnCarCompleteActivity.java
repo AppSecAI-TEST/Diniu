@@ -284,6 +284,8 @@ public class ReturnCarCompleteActivity extends BaseActivity {
                 tvStatus.setTextColor(Color.parseColor("#5e9ed8"));
                 break;
         }
+
+        tvRemarks.setText(data.getRemarks());
     }
 
 
