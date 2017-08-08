@@ -183,7 +183,7 @@ public class MissionReturnCarFragment extends BaseMapFragment {
 
         ivLocation.setOnClickListener(v -> {
             //然后可以移动到定位点,使用animateCamera就有动画效果
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLatLng, 10));
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLatLng, 15));
         });
     }
 
