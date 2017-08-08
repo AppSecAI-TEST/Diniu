@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,9 +20,9 @@
             <!--左边人像-->
             <RelativeLayout
                 android:id="@+id/mainAct_rl_leftClick"
-                android:paddingRight="@dimen/x10"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/x10">
 
                 <ImageButton
                     android:id="@+id/ib_title_left"
@@ -35,7 +35,7 @@
                     android:paddingBottom="@dimen/y10"
                     android:paddingLeft="@dimen/x10"
                     android:paddingTop="@dimen/y10"
-                    android:src="@mipmap/user" />
+                    android:src="@mipmap/user"/>
 
                 <View
                     android:id="@+id/v_dot_left"
@@ -43,7 +43,8 @@
                     android:layout_height="@dimen/y4"
                     android:layout_marginTop="@dimen/x12"
                     android:layout_toRightOf="@id/ib_title_left"
-                    android:background="@drawable/drawable_red_dot" />
+                    android:background="@drawable/drawable_red_dot"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <!--中间任务/日志切换-->
@@ -53,12 +54,12 @@
                 android:layout_height="@dimen/y26"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
-                app:tl_textsize="16sp"
                 app:tl_bar_stroke_color="@color/white"
                 app:tl_indicator_color="@color/white"
                 app:tl_indicator_corner_radius="5dp"
                 app:tl_textSelectColor="#5E9ED8"
-                app:tl_textUnselectColor="@color/white" />
+                app:tl_textUnselectColor="@color/white"
+                app:tl_textsize="16sp"/>
 
             <!--右边消息-->
             <RelativeLayout
@@ -76,7 +77,7 @@
                     android:paddingBottom="@dimen/y10"
                     android:paddingLeft="@dimen/x10"
                     android:paddingTop="@dimen/y10"
-                    android:src="@mipmap/message" />
+                    android:src="@mipmap/message"/>
 
                 <View
                     android:id="@+id/v_dot_right"
@@ -86,7 +87,7 @@
                     android:layout_marginRight="@dimen/x11"
                     android:layout_marginTop="@dimen/y12"
                     android:background="@drawable/drawable_red_dot"
-                    android:visibility="visible" />
+                    android:visibility="gone"/>
             </RelativeLayout>
 
         </RelativeLayout>
@@ -94,7 +95,7 @@
         <com.workapp.auto.carterminal.widget.NoScrollViewPager
             android:id="@+id/mainAct_viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
