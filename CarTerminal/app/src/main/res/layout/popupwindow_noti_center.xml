@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    android:background="@mipmap/wde">
+    <TextView
+        android:layout_marginTop="@dimen/y11"
+        android:id="@+id/tv_read_all"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y37"
+        android:textSize="14sp"
+        android:textColor="@color/t28"
+        android:text="全部标为已读"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/te5"
+        android:layout_marginLeft="@dimen/x7"
+        android:layout_marginRight="@dimen/x15"/>
+    <TextView
+        android:id="@+id/tv_delete_all"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y37"
+        android:textSize="14sp"
+        android:textColor="@color/t28"
+        android:text="删除全部信息"
+        />
+</LinearLayout>

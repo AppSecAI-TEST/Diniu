@@ -5,11 +5,8 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,10 +23,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     private RelativeLayout rlTitle;
     private ImageView ivBack;
     private TextView tvTitle;
+    public ImageView ivRight;
     private RelativeLayout rlLoading;
     private TextView tvRight;
     private RightClick rightClick;
     private boolean isVisible;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,18 +54,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         rlTitle = (RelativeLayout) findViewById(R.id.commonTitle_rl);
         ivBack = (ImageView) findViewById(R.id.title_iv_back);
         tvTitle = (TextView) findViewById(R.id.title_tv_title);
-        tvRight= (TextView) findViewById(R.id.tv_right);
+        ivRight = (ImageView) findViewById(R.id.title_iv_right);
+        tvRight = (TextView) findViewById(R.id.tv_right);
         rlLoading = (RelativeLayout) findViewById(R.id.commonProgress_rl);
         ivBack.setOnClickListener(v -> {
             finish();
         });
         View childView = getLayoutInflater().inflate(layoutResId, null);
-        flBaseContent.addView(childView,0);
+        flBaseContent.addView(childView, 0);
     }
 
     /**
      * 返回值为所要加载的布局文件
-     *
      */
     protected abstract int getLayout();
 
@@ -106,17 +105,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             tvTitle.setText(title);
         }
     }
-   public void showRightTitle(String rightTitle,RightClick rightClick){
-       this.rightClick=rightClick;
-       tvRight.setVisibility(View.VISIBLE);
-       tvRight.setText(rightTitle);
-       tvRight.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               rightClick.click(v);
-           }
-       });
-   }
+
+    public void showRightTitle(String rightTitle, RightClick rightClick) {
+        this.rightClick = rightClick;
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText(rightTitle);
+        tvRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rightClick.click(v);
+            }
+        });
+    }
+
     public void showLoadingView() {
         rlLoading.setVisibility(View.VISIBLE);
     }
@@ -134,7 +135,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void hideTitle() {
         rlTitle.setVisibility(View.GONE);
     }
-    public interface RightClick{
+
+    public interface RightClick {
         void click(View view);
     }
 }

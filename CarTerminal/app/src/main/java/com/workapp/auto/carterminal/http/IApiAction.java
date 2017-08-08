@@ -8,6 +8,7 @@ import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
+import com.workapp.auto.carterminal.module.main.bean.MessageReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarListReturnBean;
 
@@ -106,5 +107,8 @@ public interface IApiAction {
     Observable<BooleanReturnBean> checkScope(@Query("lng") String lng, @Query("lat") String lat,
                                              @Query("scope") String scope, @Query("endLng") String endLng,
                                              @Query("endLat") String endLat);
+
+    @GET("notice/findNoticeList")
+    Observable<MessageReturnBean> getNoticeList();
 
 }

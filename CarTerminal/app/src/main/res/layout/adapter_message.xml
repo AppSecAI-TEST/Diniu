@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/messageAdapter_rl_click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/y18"
+                android:paddingLeft="@dimen/x12"
+                android:paddingRight="@dimen/x12"
+                android:paddingTop="@dimen/y18">
+
+    <TextView
+        android:id="@+id/messageAdapter_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/xxx"
+        android:textColor="#282828"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/messageAdapter_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/messageAdapter_tv_title"
+        android:layout_marginTop="@dimen/y12"
+        android:text="@string/xxx"
+        android:textColor="#999999"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/enter"/>
+
+    <View
+        android:id="@+id/messageAdapter_redDot"
+        android:layout_width="@dimen/x8"
+        android:layout_height="@dimen/y8"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_toLeftOf="@+id/iv_arrow"
+        android:background="@drawable/drawable_red_dot"
+        android:visibility="visible"/>
+
+
+</RelativeLayout>
