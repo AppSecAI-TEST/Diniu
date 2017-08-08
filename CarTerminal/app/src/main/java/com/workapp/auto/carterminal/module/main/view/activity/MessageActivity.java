@@ -50,6 +50,7 @@ public class MessageActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         ivRight.setVisibility(View.VISIBLE);
+        setTitle("公告");
         initRecyclerView();
     }
 

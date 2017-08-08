@@ -62,7 +62,6 @@
 
             <!--右边消息-->
             <RelativeLayout
-                android:id="@+id/mainAct_rl_rightClick"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true">

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -28,10 +28,10 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
     @Bind(R.id.dl_main)
     DrawerLayout drawerLayout;
-    @Bind(R.id.mainAct_rl_leftClick)
-    RelativeLayout rlLeftClick;
-    @Bind(R.id.mainAct_rl_rightClick)
-    RelativeLayout rlRightClick;
+    @Bind(R.id.ib_title_left)
+    ImageView ivLeftClick;
+    @Bind(R.id.bt_home_right)
+    ImageView ivRightClick;
     @Bind(R.id.mainAct_tabLayout)
     SegmentTabLayout tabLayout;
     @Bind(R.id.mainAct_viewPager)
@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        rlLeftClick.setOnClickListener(v -> {
+        ivLeftClick.setOnClickListener(v -> {
             /*if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
                 drawerLayout.closeDrawer(Gravity.LEFT);
             } else {
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
             showDialog();
         });
 
-        rlRightClick.setOnClickListener(v -> {
+        ivRightClick.setOnClickListener(v -> {
             startActivity(new Intent(this, MessageActivity.class));
         });
     }
