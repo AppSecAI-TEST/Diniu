@@ -8,7 +8,9 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.login.bean.SignInReturnBean;
 import com.workapp.auto.carterminal.module.login.view.function.ILoginView;
+import com.workapp.auto.carterminal.utils.AppUtils;
 import com.workapp.auto.carterminal.utils.SharedPreferencesUtils;
+import com.workapp.auto.carterminal.utils.SystemUtils;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,7 +23,7 @@ import rx.schedulers.Schedulers;
 public class LoginPresenter extends BasePresenter<ILoginView> {
     public void SignIn(String accountNo, String password) {
         mView.showLoading();
-        RetrofitUtil.getInstance().api().signIn(accountNo, password)
+        RetrofitUtil.getInstance().api().signIn(accountNo, password,"1", AppUtils.getVersionName(MyApplication.getInstance()),SystemUtils.getSystemModel(),"1", SystemUtils.getSystemVersion(),SystemUtils.getIMEI(MyApplication.getInstance()),"jg")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SignInReturnBean>() {

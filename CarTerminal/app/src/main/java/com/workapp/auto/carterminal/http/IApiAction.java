@@ -31,7 +31,11 @@ import rx.Observable;
  */
 public interface IApiAction {
     @POST("login/signin")
-    Observable<SignInReturnBean> signIn(@Query("accountNo") String accountNo, @Query("password") String password);
+    Observable<SignInReturnBean> signIn(@Query("accountNo") String accountNo, @Query("password") String password,
+                                        @Query("channel") String channel, @Query("appVersion") String appVersion,
+                                        @Query("termModel") String termModel, @Query("termSystem") String termSystem,
+                                        @Query("termSystemVersion") String termSystemVersion, @Query("termId") String termId,
+                                        @Query("jgregId") String jgregId);
 
     @POST("sms/sendSmsCode")
     Observable<BaseResponse> sendSmsCode(@Query("phone") String phone);
