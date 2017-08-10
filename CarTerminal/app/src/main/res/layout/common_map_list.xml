@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@mipmap/close"
                     android:drawablePadding="@dimen/x7"
-                    android:text="开门"
+                    android:text="关门"
                     android:textColor="@color/c2"
                     android:textSize="16sp"/>
             </LinearLayout>
