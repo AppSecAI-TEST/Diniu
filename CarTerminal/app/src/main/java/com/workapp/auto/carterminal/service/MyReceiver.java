@@ -29,7 +29,7 @@ public class MyReceiver extends BroadcastReceiver {
 
 
         Bundle bundle = intent.getExtras();
-        Log.d(TAG, "onReceive - " + intent.getAction() + ", extras: " + bundle.toString());
+        Log.d(TAG, "onReceive - " + intent.getAction() + ", extras: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
 
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             Log.d(TAG, "JPush用户注册成功");
