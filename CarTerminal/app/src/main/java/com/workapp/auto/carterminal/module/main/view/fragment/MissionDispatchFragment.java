@@ -619,7 +619,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
                             if (booleanReturnBean.isData()){
                                 showConfirmDialog();
                             }else{
-                                ToastUtils.showShort(MyApplication.getInstance(), "您当前不在调度范围内");
+                                ToastUtils.showShort(MyApplication.getInstance(), "您不在任务站点附近，请先抵达任务站点。");
                             }
                         } else {
                             ToastUtils.showShort(MyApplication.getInstance(), booleanReturnBean.getMessage());

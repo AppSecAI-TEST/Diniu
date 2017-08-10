@@ -3,6 +3,7 @@
     android:id="@+id/commonProgress_rl"
     android:visibility="gone"
     android:clickable="true"
+    android:background="#4D000000"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
