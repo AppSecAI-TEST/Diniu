@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 public class LoginPresenter extends BasePresenter<ILoginView> {
     public void SignIn(String accountNo, String password) {
         mView.showLoading();
-        RetrofitUtil.getInstance().api().signIn(accountNo, password,"1", AppUtils.getVersionName(MyApplication.getInstance()),SystemUtils.getSystemModel(),"1", SystemUtils.getSystemVersion(),SystemUtils.getIMEI(MyApplication.getInstance()),"jg")
+        RetrofitUtil.getInstance().api().signIn(accountNo, password,"1", AppUtils.getVersionName(MyApplication.getInstance()),SystemUtils.getSystemModel(),"1", SystemUtils.getSystemVersion(),SystemUtils.getIMEI(MyApplication.getInstance()),"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SignInReturnBean>() {

@@ -174,6 +174,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void toMainAct() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override
