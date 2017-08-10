@@ -114,7 +114,7 @@ public class ReturnCarListReturnBean extends BaseResponse{
             private String plateNo;
             private String carModel;
             private double canRange;
-            private int distance;
+            private String distance;
             private int power;
             private String frameNo;
             private int state;
@@ -186,11 +186,11 @@ public class ReturnCarListReturnBean extends BaseResponse{
                 this.canRange = canRange;
             }
 
-            public int getDistance() {
+            public String getDistance() {
                 return distance;
             }
 
-            public void setDistance(int distance) {
+            public void setDistance(String distance) {
                 this.distance = distance;
             }
 

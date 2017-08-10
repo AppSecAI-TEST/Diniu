@@ -117,7 +117,7 @@ public class DispatchListReturnBean extends BaseResponse {
             private String plateNo;
             private String startName;
             private String endName;
-            private int distance;
+            private String distance;
             private String carModel;
             private int power;
             private double canRange;
@@ -173,11 +173,11 @@ public class DispatchListReturnBean extends BaseResponse {
                 this.endName = endName;
             }
 
-            public int getDistance() {
+            public String getDistance() {
                 return distance;
             }
 
-            public void setDistance(int distance) {
+            public void setDistance(String distance) {
                 this.distance = distance;
             }
 
