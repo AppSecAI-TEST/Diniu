@@ -21,6 +21,7 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.ReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.widget.SelectDialog;
@@ -258,17 +259,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().returnCarReceiveDetail(mTaskId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ReturnCarDetailReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<ReturnCarDetailReturnBean>(MissionReturnCarInfoActivity.this) {
                     @Override
                     public void onNext(ReturnCarDetailReturnBean returnCarDetailReturnBean) {
                         if (returnCarDetailReturnBean.isSuccess()) {
@@ -423,17 +414,7 @@ public class MissionReturnCarInfoActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().updateCarStatus(mTaskId, String.valueOf(mState), edt.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BaseResponse>(MissionReturnCarInfoActivity.this) {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {

@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.MessageReturnBean;
 import com.workapp.auto.carterminal.module.main.view.adapter.MessageAdapter;
@@ -84,17 +85,7 @@ public class MessageActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().getNoticeList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MessageReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<MessageReturnBean>(MessageActivity.this) {
                     @Override
                     public void onNext(MessageReturnBean messageReturnBean) {
                         if (messageReturnBean.isSuccess()) {

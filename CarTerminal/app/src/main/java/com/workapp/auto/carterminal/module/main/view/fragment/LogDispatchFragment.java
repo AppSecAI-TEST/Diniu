@@ -13,8 +13,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.workapp.auto.carterminal.R;
+import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseMapFragment;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.DispatchListReturnBean;
 import com.workapp.auto.carterminal.module.main.view.adapter.LogDispatchAdapter;
@@ -102,17 +104,7 @@ public class LogDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().dispatchList("0", "0", String.valueOf(mPage), String.valueOf(mSize), "2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DispatchListReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<DispatchListReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(DispatchListReturnBean dispatchListReturnBean) {
                         if (dispatchListReturnBean.isSuccess()) {

@@ -39,10 +39,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.workapp.auto.carterminal.R;
+import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseMapFragment;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.config.AppConstant;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.BooleanReturnBean;
 import com.workapp.auto.carterminal.module.main.bean.CurrentTaskReturnBean;
@@ -283,17 +285,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().getCurrentTask(String.valueOf(mLatitude), String.valueOf(mLatitude))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CurrentTaskReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<CurrentTaskReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(CurrentTaskReturnBean currentTaskReturnBean) {
                         MissionFragment parentFragment = (MissionFragment) getParentFragment();
@@ -320,17 +312,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().dispatchList(String.valueOf(mLatitude), String.valueOf(mLongitude), String.valueOf(mPage), String.valueOf(mSize), "0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DispatchListReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<DispatchListReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(DispatchListReturnBean dispatchListReturnBean) {
                         if (dispatchListReturnBean.isSuccess()) {
@@ -392,17 +374,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().getTask(taskId, "1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BaseResponse>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
@@ -514,17 +486,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().dispatchFinish(mTaskId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BaseResponse>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {
@@ -542,17 +504,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().openCarDoor(mFrameNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BooleanReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BooleanReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(BooleanReturnBean booleanReturnBean) {
                         if (booleanReturnBean.isSuccess()) {
@@ -572,17 +524,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().closeCarDoor(mFrameNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BooleanReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BooleanReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(BooleanReturnBean booleanReturnBean) {
                         if (booleanReturnBean.isSuccess()) {
@@ -602,17 +544,7 @@ public class MissionDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().checkScope(String.valueOf(mLongitude), String.valueOf(mLatitude), AppConstant.DISPATCH_SCOPE, String.valueOf(mEndLng), String.valueOf(mEndLat))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BooleanReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BooleanReturnBean>((BaseActivity) getActivity()) {
                     @Override
                     public void onNext(BooleanReturnBean booleanReturnBean) {
                         if (booleanReturnBean.isSuccess()) {

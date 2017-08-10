@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.DispatchCompleteReturnBean;
 
@@ -61,17 +62,7 @@ public class DispatchCompleteActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().dispatchReceive(mTaskId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DispatchCompleteReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<DispatchCompleteReturnBean>(DispatchCompleteActivity.this) {
                     @Override
                     public void onNext(DispatchCompleteReturnBean dispatchCompleteReturnBean) {
                         if (dispatchCompleteReturnBean.isSuccess()) {

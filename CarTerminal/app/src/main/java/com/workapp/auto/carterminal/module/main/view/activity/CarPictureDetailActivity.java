@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
 
@@ -50,17 +51,7 @@ public class CarPictureDetailActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().checkCarLogs(intent.getStringExtra("taskId"), "5")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CarInfoCheckReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<CarInfoCheckReturnBean>(CarPictureDetailActivity.this) {
                     @Override
                     public void onNext(CarInfoCheckReturnBean carInfoCheckReturnBean) {
                         if (carInfoCheckReturnBean.isSuccess()) {

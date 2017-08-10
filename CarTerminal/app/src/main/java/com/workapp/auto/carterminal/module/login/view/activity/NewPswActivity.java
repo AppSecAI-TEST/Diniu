@@ -12,6 +12,7 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 import com.workapp.auto.carterminal.widget.CustomIconSingleDialog;
@@ -105,17 +106,7 @@ public class NewPswActivity extends BaseActivity {
             RetrofitUtil.getInstance().api().forgetPsw(mPhone,etRepeat.getText().toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<BaseResponse>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                        }
-
+                    .subscribe(new ProgressSubscriber<BaseResponse>(NewPswActivity.this) {
                         @Override
                         public void onNext(BaseResponse baseResponse) {
                             if(baseResponse.isSuccess()){

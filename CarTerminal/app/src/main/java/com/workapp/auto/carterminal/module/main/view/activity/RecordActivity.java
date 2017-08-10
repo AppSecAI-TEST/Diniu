@@ -17,6 +17,7 @@ import com.cjt2325.cameralibrary.lisenter.JCameraLisenter;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseResponse;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 
 import java.io.File;
@@ -25,10 +26,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.subjects.BehaviorSubject;
 
 /**
  * 录制小视频
@@ -52,7 +51,7 @@ public class RecordActivity extends BaseActivity {
     protected void initView() {
         ButterKnife.bind(this);
         hideTitle();
-        taskId=getIntent().getStringExtra("taskId");
+        taskId = getIntent().getStringExtra("taskId");
     }
 
     @Override
@@ -80,12 +79,7 @@ public class RecordActivity extends BaseActivity {
                 RetrofitUtil.getInstance().api().uploadVideo(taskId, requestBody)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<BaseResponse>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
+                        .subscribe(new ProgressSubscriber<BaseResponse>(RecordActivity.this) {
                             @Override
                             public void onError(Throwable e) {
                                 Log.i("Record", "onError: " + e.getMessage());

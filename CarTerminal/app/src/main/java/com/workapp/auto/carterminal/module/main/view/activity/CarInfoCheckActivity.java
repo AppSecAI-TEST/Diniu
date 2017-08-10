@@ -10,6 +10,7 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckBean;
 import com.workapp.auto.carterminal.module.main.bean.CarInfoCheckReturnBean;
@@ -98,17 +99,7 @@ public class CarInfoCheckActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().checkCarLogs(mTaskId, mType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CarInfoCheckReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<CarInfoCheckReturnBean>(CarInfoCheckActivity.this) {
                     @Override
                     public void onNext(CarInfoCheckReturnBean carInfoCheckReturnBean) {
                         if (carInfoCheckReturnBean.isSuccess()) {
@@ -395,17 +386,7 @@ public class CarInfoCheckActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().saveOrUpdateValidCarStatus(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<BaseResponse>(CarInfoCheckActivity.this) {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
                         if (baseResponse.isSuccess()) {

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.FindReturnCarDetailReturnBean;
 import com.workapp.auto.carterminal.widget.SelectDialog;
@@ -192,17 +193,7 @@ public class ReturnCarCompleteActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().findReturnCarDetail(mTaskId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<FindReturnCarDetailReturnBean>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showMsg(MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                    }
-
+                .subscribe(new ProgressSubscriber<FindReturnCarDetailReturnBean>(ReturnCarCompleteActivity.this) {
                     @Override
                     public void onNext(FindReturnCarDetailReturnBean findReturnCarDetailReturnBean) {
                         if (findReturnCarDetailReturnBean.isSuccess()) {

@@ -13,6 +13,7 @@ import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
 import com.workapp.auto.carterminal.base.BaseResponse;
 import com.workapp.auto.carterminal.base.MyApplication;
+import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.utils.MyCountDownTimer;
 import com.workapp.auto.carterminal.utils.ToastUtils;
@@ -111,17 +112,7 @@ public class ForgetPswActivity extends BaseActivity {
             RetrofitUtil.getInstance().api().sendSmsCode(etMobile.getText().toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<BaseResponse>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-                        }
-
+                    .subscribe(new ProgressSubscriber<BaseResponse>(ForgetPswActivity.this) {
                         @Override
                         public void onNext(BaseResponse baseResponse) {
                             if (baseResponse.isSuccess()) {
@@ -137,18 +128,7 @@ public class ForgetPswActivity extends BaseActivity {
             RetrofitUtil.getInstance().api().checkSmsCode(etMobile.getText().toString(), etCheckCode.getText().toString())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<BaseResponse>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
-
-                        }
-
+                    .subscribe(new ProgressSubscriber<BaseResponse>(ForgetPswActivity.this) {
                         @Override
                         public void onNext(BaseResponse baseResponse) {
                             if (baseResponse.isSuccess()) {
