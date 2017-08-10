@@ -49,7 +49,7 @@ public class BaseResponse {
     private void logOut() {
         SharedPreferencesUtils.remove(MyApplication.getInstance(), "X-Auth-Token");
         Intent intent = new Intent(MyApplication.getInstance(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         MyApplication.getInstance().startActivity(intent);
     }
 }
