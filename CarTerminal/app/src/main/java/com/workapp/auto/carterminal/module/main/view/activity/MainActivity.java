@@ -21,6 +21,8 @@ import com.workapp.auto.carterminal.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity {
 
     private String[] mTitles = {"任务", "日志"};
     private List<Fragment> mFragments = new ArrayList<>();
+    private boolean isExit;
 
     @Override
     protected int getLayout() {
@@ -146,6 +149,32 @@ public class MainActivity extends BaseActivity {
     private void logOut() {
         SharedPreferencesUtils.remove(this, "X-Auth-Token");
         startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        exitBy2Click();
+    }
+
+    /**
+     * 双击退出
+     */
+    private void exitBy2Click() {
+        Timer tExit;
+        if (!isExit) {
+            isExit = true; // 准备退出
+            showMsg("再按一次退出程序");
+            tExit = new Timer();
+            tExit.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false; // 取消退出
+                }
+            }, 3000); // 如果3秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+
+        } else {
+            this.finish();
+        }
     }
 
 }
