@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -54,6 +55,26 @@ public class CarInfoCheckAdapter extends BaseQuickAdapter<CarInfoCheckBean, Base
         }
 
         RadioGroup radioGroup = helper.getView(R.id.carInfoCheckAdapter_radioGroup);
+        RadioButton radioButton0 = helper.getView(R.id.carInfoCheckAdapter_radioBtn_0);
+        RadioButton radioButton1 = helper.getView(R.id.carInfoCheckAdapter_radioBtn_1);
+        RadioButton radioButton2 = helper.getView(R.id.carInfoCheckAdapter_radioBtn_2);
+        RadioButton radioButton3 = helper.getView(R.id.carInfoCheckAdapter_radioBtn_3);
+        switch (item.getStatus()){
+            case "0":
+                radioButton0.setChecked(true);
+                break;
+            case "1":
+                radioButton1.setChecked(true);
+                break;
+            case "2":
+                radioButton2.setChecked(true);
+                break;
+            case "3":
+                radioButton3.setChecked(true);
+                break;
+            default:
+                break;
+        }
         ImageView ivArrow = helper.getView(R.id.carInfoCheckAdapter_iv_arrow);
         LinearLayout llClick = helper.getView(R.id.carInfoCheckAdapter_ll_click);
         llClick.setOnClickListener(v -> {
