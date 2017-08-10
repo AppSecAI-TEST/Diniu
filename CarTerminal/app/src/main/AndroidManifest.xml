@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.workapp.auto.carterminal">
+          package="com.workapp.auto.carterminal">\
+    <!-- Required -->
+    <permission
+        android:name="${applicationId}.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <!--官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。-->
+    <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
+    <!--允许应用可以接收点亮屏幕或解锁广播。-->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!--允许应用在手机屏幕关闭后后台进程仍然运行-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--允许应用读写系统设置项。-->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!--允许应用震动。-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--允许应用挂载/卸载 外部文件系统。。-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <!--写入手机存储-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

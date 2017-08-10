@@ -12,6 +12,7 @@ import com.workapp.auto.carterminal.utils.AppUtils;
 import com.workapp.auto.carterminal.utils.SharedPreferencesUtils;
 import com.workapp.auto.carterminal.utils.SystemUtils;
 
+import cn.jpush.android.api.JPushInterface;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,7 +24,9 @@ import rx.schedulers.Schedulers;
 public class LoginPresenter extends BasePresenter<ILoginView> {
     public void SignIn(String accountNo, String password) {
         mView.showLoading();
-        RetrofitUtil.getInstance().api().signIn(accountNo, password,"1", AppUtils.getVersionName(MyApplication.getInstance()),SystemUtils.getSystemModel(),"1", SystemUtils.getSystemVersion(),SystemUtils.getIMEI(MyApplication.getInstance()),"")
+        String mao = JPushInterface.getRegistrationID(MyApplication.getInstance());
+        Log.d("maoyihan", mao);
+        RetrofitUtil.getInstance().api().signIn(accountNo, password, "1", AppUtils.getVersionName(MyApplication.getInstance()), SystemUtils.getSystemModel(), "1", SystemUtils.getSystemVersion(), SystemUtils.getIMEI(MyApplication.getInstance()), JPushInterface.getRegistrationID(MyApplication.getInstance()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<SignInReturnBean>() {

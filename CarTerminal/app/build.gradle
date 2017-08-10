@@ -6,12 +6,24 @@ android {
     buildToolsVersion '26.0.1'
 
     defaultConfig {
-        applicationId "com.workapp.auto.carterminal"
+        applicationId "com.workapp.CarTerminal"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "226c8b26faf8d9c40a67dd2a", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
 
     signingConfigs {
@@ -73,5 +85,8 @@ dependencies {
     compile 'com.amap.api:map2d:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
+    /*极光推送*/
+    compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
 
 }
