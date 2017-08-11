@@ -33,7 +33,6 @@ public class MessageAdapter extends BaseQuickAdapter<MessageReturnBean.DataBean,
         rlClick.setOnClickListener(v -> {
             Intent intent = new Intent(mActivity, WebActivity.class);
             intent.putExtra("url", item.getUrl());
-            intent.putExtra("title", item.getTitle());
             mActivity.startActivity(intent);
         });
     }
