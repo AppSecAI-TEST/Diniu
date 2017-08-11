@@ -104,7 +104,17 @@ public class LogDispatchFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().dispatchList("0", "0", String.valueOf(mPage), String.valueOf(mSize), "2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ProgressSubscriber<DispatchListReturnBean>((BaseActivity) getActivity()) {
+                .subscribe(new Subscriber<DispatchListReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
                     @Override
                     public void onNext(DispatchListReturnBean dispatchListReturnBean) {
                         if (dispatchListReturnBean.isSuccess()) {

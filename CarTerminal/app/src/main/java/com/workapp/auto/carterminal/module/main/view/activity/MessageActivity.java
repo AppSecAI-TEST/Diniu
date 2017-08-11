@@ -21,6 +21,7 @@ import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.module.main.bean.MessageReturnBean;
 import com.workapp.auto.carterminal.module.main.view.adapter.MessageAdapter;
+import com.workapp.auto.carterminal.utils.ToastUtils;
 import com.workapp.auto.carterminal.widget.CustomIconDialog;
 
 import butterknife.Bind;
@@ -85,7 +86,17 @@ public class MessageActivity extends BaseActivity {
         RetrofitUtil.getInstance().api().getNoticeList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ProgressSubscriber<MessageReturnBean>(MessageActivity.this) {
+                .subscribe(new Subscriber<MessageReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
                     @Override
                     public void onNext(MessageReturnBean messageReturnBean) {
                         if (messageReturnBean.isSuccess()) {

@@ -306,7 +306,17 @@ public class MissionReturnCarFragment extends BaseMapFragment {
         RetrofitUtil.getInstance().api().findReturnCarList(String.valueOf(mLatitude), String.valueOf(mLongitude), AppConstant.RETURNCAR_LIST_RANGE, String.valueOf(mPage), String.valueOf(mSize), "0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ProgressSubscriber<ReturnCarListReturnBean>((BaseActivity) getActivity()) {
+                .subscribe(new Subscriber<ReturnCarListReturnBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
+                    }
+
                     @Override
                     public void onNext(ReturnCarListReturnBean returnCarListReturnBean) {
                         if (returnCarListReturnBean.isSuccess()) {
