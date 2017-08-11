@@ -314,6 +314,11 @@ public class MissionReturnCarFragment extends BaseMapFragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        if (mPage == 1) {
+                            refreshLayout.finishRefresh();
+                        } else {
+                            mMissionReturnCarAdapter.loadMoreFail();
+                        }
                         ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
                     }
 

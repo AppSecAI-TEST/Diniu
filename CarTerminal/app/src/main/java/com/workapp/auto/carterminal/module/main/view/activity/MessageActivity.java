@@ -89,7 +89,7 @@ public class MessageActivity extends BaseActivity {
                 .subscribe(new Subscriber<MessageReturnBean>() {
                     @Override
                     public void onCompleted() {
-
+                        refreshLayout.finishRefresh();
                     }
 
                     @Override

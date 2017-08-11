@@ -112,6 +112,11 @@ public class LogDispatchFragment extends BaseMapFragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        if (mPage == 1) {
+                            refreshLayout.finishRefresh();
+                        } else {
+                            mLogDispatchAdapter.loadMoreFail();
+                        }
                         ToastUtils.showShort(MyApplication.getInstance(), MyApplication.getInstance().getString(R.string.network_on_error) + e.toString());
                     }
 

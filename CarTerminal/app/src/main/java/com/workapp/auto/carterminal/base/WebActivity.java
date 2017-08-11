@@ -28,6 +28,7 @@ public class WebActivity extends BaseActivity {
         ButterKnife.bind(this);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        setTitle(getIntent().getStringExtra("title"));
     }
 
     @Override

@@ -3,7 +3,7 @@
                 android:id="@+id/messageAdapter_rl_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="@dimen/y3"
                 android:background="@color/white"
                 android:paddingBottom="@dimen/y18"
                 android:paddingLeft="@dimen/x12"
