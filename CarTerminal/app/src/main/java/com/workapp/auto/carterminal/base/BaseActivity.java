@@ -1,5 +1,7 @@
 package com.workapp.auto.carterminal.base;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.workapp.auto.carterminal.R;
+import com.workapp.auto.carterminal.event.JPushEvent;
+import com.workapp.auto.carterminal.module.login.view.activity.LoginActivity;
+import com.workapp.auto.carterminal.utils.SharedPreferencesUtils;
 import com.workapp.auto.carterminal.utils.ToastUtils;
+import com.workapp.auto.carterminal.widget.CustomIconDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * activity基类
@@ -100,6 +109,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     public void setTitle(String title) {
         if (!TextUtils.isEmpty(title)) {
             tvTitle.setText(title);
@@ -138,5 +159,27 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public interface RightClick {
         void click(View view);
+    }
+
+    @Subscribe
+    public void onJPushEvent(JPushEvent event) {
+        if (event.message.equals("signout.auto")) {
+            CustomIconDialog.Builder builder = new CustomIconDialog.Builder(this);
+            builder.setMessage("您的账号已在另一设备登录");
+            builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    SharedPreferencesUtils.remove(MyApplication.getInstance(), "X-Auth-Token");
+                    Intent intent = new Intent(MyApplication.getInstance(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    MyApplication.getInstance().startActivity(intent);
+                    finish();
+                }
+            });
+            CustomIconDialog customIconDialog = builder.create();
+            customIconDialog.setCancelable(false);
+            customIconDialog.show();
+        }
     }
 }
