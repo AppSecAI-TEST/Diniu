@@ -105,7 +105,7 @@ public class ForgetPswActivity extends BaseActivity {
                 ToastUtils.showShort(this, "请输入手机号码");
                 return;
             }
-            if (StringUtil.isPhoneNumber(etMobile.getText().toString())) {
+            if (!StringUtil.isPhoneNumber(etMobile.getText().toString())) {
                 ToastUtils.showShort(this, "请输入正确的手机号码");
                 return;
             }
