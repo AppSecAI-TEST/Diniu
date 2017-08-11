@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.workapp.auto.carterminal.R;
 import com.workapp.auto.carterminal.base.BaseActivity;
@@ -16,11 +14,11 @@ import com.workapp.auto.carterminal.base.MyApplication;
 import com.workapp.auto.carterminal.http.ProgressSubscriber;
 import com.workapp.auto.carterminal.http.RetrofitUtil;
 import com.workapp.auto.carterminal.utils.MyCountDownTimer;
+import com.workapp.auto.carterminal.utils.StringUtil;
 import com.workapp.auto.carterminal.utils.ToastUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -105,6 +103,10 @@ public class ForgetPswActivity extends BaseActivity {
         btnCheckCode.setOnClickListener(v -> {
             if (TextUtils.isEmpty(etMobile.getText().toString())) {
                 ToastUtils.showShort(this, "请输入手机号码");
+                return;
+            }
+            if (StringUtil.isPhoneNumber(etMobile.getText().toString())) {
+                ToastUtils.showShort(this, "请输入正确的手机号码");
                 return;
             }
             btnCheckCode.setEnabled(false);
